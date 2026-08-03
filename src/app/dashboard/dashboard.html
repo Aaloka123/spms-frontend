@@ -1,0 +1,39 @@
+<div class="dash">
+  <header class="dash__intro">
+    <p class="dash__eyebrow">Operations</p>
+    <h1>Dashboard</h1>
+    <p class="dash__lead">Welcome to the Pharmacy Management System.</p>
+  </header>
+
+  <div class="dash__stats">
+    <section class="stat">
+      <h3>Total Medicines</h3>
+      <p class="stat__value">500</p>
+    </section>
+
+    <section class="stat">
+      <h3>Low Stock Medicines</h3>
+      <p class="stat__value stat__value--alert">12</p>
+    </section>
+
+    <section class="stat">
+      <h3>Total Vendors</h3>
+      <p class="stat__value">25</p>
+    </section>
+  </div>
+
+  <section class="dash__activity">
+    <h2>Recent activity</h2>
+    <p class="dash__purchase">
+      Last Purchased Medicine:
+      <span>{{ lastPurchasedMedicine }}</span>
+    </p>
+  </section>
+
+  <section class="dash__catalog">
+    <app-product
+      [pharmacy]="pharmacyName"
+      (productPurchased)="onProductPurchased($event)"
+    ></app-product>
+  </section>
+</div>
