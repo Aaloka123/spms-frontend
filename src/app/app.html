@@ -1,12 +1,9 @@
-<header class="header">
-  <h1>💊 Pharmacy Management System</h1>
+<!-- header always visible -->
+<app-header />
 
-  <nav>
-    <a routerLink="/">Dashboard</a>
-    <a routerLink="/products">Products</a>
-  </nav>
-</header>
-
-<main class="content">
-  <router-outlet></router-outlet>
+<!-- page content changes here based on route -->
+<main>
+  <router-outlet />
 </main>
+
+<app-footer/>

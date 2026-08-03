@@ -1,0 +1,148 @@
+<!-- top border + same background as header -->
+<footer class="border-t border-slate-200 bg-[#F8FAFC]">
+  <div class="px-4 py-12 md:px-8 lg:px-[80px]">
+    <!-- 4 columns on large screens -->
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
+      <!-- Column 1: logo + short description -->
+      <div class="lg:pr-8">
+        <img
+          src="/assets/Mednexux.png"
+          alt="MedNexus logo"
+          class="h-12 w-auto object-contain"
+        />
+        <p class="mt-4 max-w-xs text-[14px] leading-6 text-slate-600">
+          A modern pharmacy management platform built for safer workflows,
+          faster operations, and better care outcomes.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div>
+        <h4 class="text-[16px] font-[600] text-teal-700">Quick Links</h4>
+        <ul class="mt-4 space-y-2.5 text-[14px] text-slate-600">
+          <li>
+            <a
+              routerLink="/"
+              routerLinkActive="font-[600] text-slate-900"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Product
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/about"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/contacts"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Contacts
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Company -->
+      <div>
+        <h4 class="text-[16px] font-[600] text-teal-700">Company</h4>
+        <ul class="mt-4 space-y-2.5 text-[14px] text-slate-600">
+          <li>
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+              Careers
+            </a>
+          </li>
+          <li>
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+              Blog
+            </a>
+          </li>
+          <li>
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+              Contact Us
+            </a>
+          </li>
+
+          <!-- show only when user is NOT logged in -->
+          @if (!isLoggedIn) {
+            <li>
+              <a
+                routerLink="/vendorsignup"
+                class="cursor-pointer font-semibold text-teal-700 underline underline-offset-2 transition hover:text-teal-800"
+              >
+                Become a vendor
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Column 4: Support -->
+      <div>
+        <h4 class="text-[16px] font-[600] text-teal-700">Support</h4>
+        <ul class="mt-4 space-y-2.5 text-[14px] text-slate-600">
+          <li>
+            <a
+              routerLink="/contacts"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Help Center
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/contacts"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/contacts"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Terms of Service
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/contacts"
+              routerLinkActive="font-[600] text-slate-900"
+              class="cursor-pointer transition hover:text-slate-900"
+            >
+              Contact Support
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
