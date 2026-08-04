@@ -1,31 +1,40 @@
-<!-- full-width hero section -->
+<!-- Full-width hero banner for the home page -->
 <section class="relative w-full overflow-x-clip overflow-y-visible">
-  <!-- background gradient layer -->
+
+  <!-- Background gradient (decorative only, hidden from screen readers) -->
   <div
     aria-hidden="true"
     class="absolute inset-0"
     style="background: linear-gradient(180deg, #ffffff 0%, #eef8f6 16%, #b8e4dc 32%, #6ebfb4 52%, #449a92 75%, #2f7570 100%);"
   ></div>
 
-  <!-- content grid: text left, image right on large screens -->
+  <!--
+    Main layout grid:
+    - 1 column on mobile (text then image)
+    - 2 columns on large screens (text left, image right)
+  -->
   <div
     class="relative mx-auto grid min-h-[640px] max-w-[1280px] grid-cols-1 items-end gap-8 px-6 py-12 sm:px-10 lg:min-h-[700px] lg:grid-cols-2 lg:items-stretch lg:gap-10 lg:px-12 lg:py-0 xl:px-14"
   >
-    <!-- LEFT: headline + text + button + stats -->
+
+    <!-- LEFT SIDE: title, description, button, and stats -->
     <div class="flex flex-col justify-between pt-6 sm:pt-8 lg:py-16 lg:pt-24">
       <div class="max-w-[520px]">
+
+        <!-- Main headline -->
         <h1
           class="text-[1.9rem] leading-[1.2] tracking-tight text-slate-900 sm:text-[2.2rem] lg:text-[2.55rem] lg:leading-[1.16]"
         >
           The <span class="font-bold text-teal-800">Best Medical</span> and Treatment Center for You
         </h1>
 
+        <!-- Short supporting text under the headline -->
         <p class="mt-5 max-w-[440px] text-[15px] leading-7 text-slate-600 sm:text-base">
           We understand that injuries and acute pain can happen unexpectedly. Our emergency
           support and verified partner pharmacies help you get the care you need, when you need it.
         </p>
 
-        <!-- CTA button -> products page -->
+        <!-- CTA button: Angular RouterLink goes to /products -->
         <a
           routerLink="/products"
           class="mt-7 inline-flex cursor-pointer items-center justify-center rounded-full bg-teal-700 px-9 py-3.5 text-[15px] font-semibold text-white shadow-[0_8px_24px_rgba(15,118,110,0.25)] transition hover:bg-teal-800 hover:shadow-[0_10px_28px_rgba(15,118,110,0.3)] lg:mt-8"
@@ -34,15 +43,17 @@
         </a>
       </div>
 
-      <!-- stats row -->
+      <!-- Stats row: loops over the stats array from hero.ts -->
       <div
         class="mt-12 grid max-w-[500px] grid-cols-3 gap-4 border-t border-white/25 pt-8 text-white sm:gap-6 lg:mt-10"
       >
         @for (item of stats; track item.label) {
           <div>
+            <!-- Big number / value -->
             <p class="text-[1.7rem] font-bold leading-none sm:text-[1.9rem] lg:text-[2rem]">
               {{ item.value }}
             </p>
+            <!-- Small label under the value -->
             <p class="mt-2 text-xs leading-snug text-white/90 sm:text-sm">
               {{ item.label }}
             </p>
@@ -51,7 +62,7 @@
       </div>
     </div>
 
-    <!-- RIGHT: hero image -->
+    <!-- RIGHT SIDE: hero image -->
     <div
       class="flex items-end justify-center overflow-visible -mr-8 pb-2 sm:-mr-12 lg:-mr-16 lg:justify-end lg:pb-0 xl:-mr-20"
     >
