@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { routes } from './app.routes'; // Import application routes
 
@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     // Registers the application's routing configuration
     provideRouter(routes),
 
-    // Registers HttpClient so it can be injected into services/components
-    provideHttpClient(),
+    // Registers HttpClient (withFetch improves SSR compatibility)
+    provideHttpClient(withFetch()),
   ],
 };

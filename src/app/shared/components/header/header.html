@@ -14,7 +14,6 @@
 
     <!-- DESKTOP NAV: hidden on small screens, shown from lg breakpoint -->
     <div class="hidden items-center gap-1.5 lg:flex">
-      <!-- exact: true => Home active only on "/" not on child routes -->
       <a
         routerLink="/"
         routerLinkActive="text-teal-700"
@@ -49,11 +48,9 @@
       </a>
     </div>
 
-    <!-- RIGHT SIDE: search + login + hamburger -->
+    <!-- RIGHT SIDE: search + login/user + hamburger -->
     <div class="flex items-center justify-end gap-2">
-      <!-- SEARCH: hidden on phones, shown from md -->
       <div class="relative hidden md:block">
-        <!-- decorative search icon (SVG) -->
         <svg
           aria-hidden="true"
           class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -70,7 +67,6 @@
           />
         </svg>
 
-        <!-- search box (UI only for now, no API yet) -->
         <input
           class="w-40 rounded-full border border-slate-200 bg-slate-50 py-2 pl-9 pr-4 text-[14px] text-slate-700 outline-none transition duration-200 hover:border-slate-300 focus:border-teal-500 focus:bg-white lg:w-52"
           placeholder="Search..."
@@ -78,16 +74,39 @@
         />
       </div>
 
-      <!-- LOGIN button (desktop/tablet) -->
-      <a
-        routerLink="/login"
-        (click)="closeMenu()"
-        class="hidden rounded-lg border border-transparent bg-gradient-to-br from-teal-600 to-teal-700 px-4 py-2 text-[14px] font-semibold text-white shadow-sm shadow-teal-900/20 transition duration-200 hover:from-teal-700 hover:to-teal-800 sm:inline-flex sm:px-5"
-      >
-        Login
-      </a>
+      @if (isLoggedIn) {
+        <!-- Logged-in user (desktop/tablet) -->
+        <div
+          class="hidden items-center gap-2 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-3 sm:inline-flex"
+          [title]="username"
+        >
+          <span
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-teal-600 to-teal-700 text-sm font-bold text-white"
+          >
+            {{ userInitial }}
+          </span>
+          <span class="max-w-[9rem] truncate text-[14px] font-semibold text-slate-800">
+            {{ username }}
+          </span>
+          <button
+            type="button"
+            class="ml-1 cursor-pointer text-xs font-medium text-slate-500 transition hover:text-teal-700"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        </div>
+      } @else {
+        <!-- LOGIN button (desktop/tablet) -->
+        <a
+          routerLink="/login"
+          (click)="closeMenu()"
+          class="hidden rounded-lg border border-transparent bg-gradient-to-br from-teal-600 to-teal-700 px-4 py-2 text-[14px] font-semibold text-white shadow-sm shadow-teal-900/20 transition duration-200 hover:from-teal-700 hover:to-teal-800 sm:inline-flex sm:px-5"
+        >
+          Login
+        </a>
+      }
 
-      <!-- HAMBURGER: only on small screens -->
       <button
         type="button"
         class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center text-slate-700 transition hover:text-teal-700 lg:hidden"
@@ -104,9 +123,7 @@
     </div>
   </nav>
 
-  <!-- MOBILE DRAWER: show only when menuOpen is true -->
   @if (menuOpen) {
-    <!-- dark backdrop behind the drawer -->
     <button
       type="button"
       aria-label="Close menu"
@@ -114,7 +131,6 @@
       (click)="closeMenu()"
     ></button>
 
-    <!-- side panel from the right -->
     <div
       class="fixed inset-y-0 right-0 z-[201] flex h-dvh w-[min(100vw,20rem)] flex-col border-l border-slate-200 bg-[#F8FAFC] shadow-2xl lg:hidden"
     >
@@ -130,7 +146,20 @@
       </div>
 
       <div class="min-h-0 flex-1 space-y-1 overflow-y-auto px-5 py-5">
-        <!-- each link closes menu after navigation -->
+        @if (isLoggedIn) {
+          <div class="mb-4 flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3">
+            <span
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-600 to-teal-700 text-lg font-bold text-white"
+            >
+              {{ userInitial }}
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-semibold text-slate-900">{{ username }}</p>
+              <p class="text-xs text-slate-500">Signed in</p>
+            </div>
+          </div>
+        }
+
         <a
           routerLink="/"
           routerLinkActive="bg-slate-100"
@@ -168,13 +197,23 @@
           Contacts
         </a>
 
-        <a
-          routerLink="/login"
-          class="mt-6 flex w-full items-center justify-center rounded-xl bg-gradient-to-br from-teal-600 to-teal-700 px-5 py-3 text-sm font-semibold text-white"
-          (click)="closeMenu()"
-        >
-          Login
-        </a>
+        @if (isLoggedIn) {
+          <button
+            type="button"
+            class="mt-6 flex w-full cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        } @else {
+          <a
+            routerLink="/login"
+            class="mt-6 flex w-full items-center justify-center rounded-xl bg-gradient-to-br from-teal-600 to-teal-700 px-5 py-3 text-sm font-semibold text-white"
+            (click)="closeMenu()"
+          >
+            Login
+          </a>
+        }
       </div>
     </div>
   }
