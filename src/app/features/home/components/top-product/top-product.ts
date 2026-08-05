@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HomeProductCard, ProductShowcase } from '../product-showcase/product-showcase';
+import { ProductFeatureService } from '../../../products/services/product.service';
+import { mapProductToCard } from '../../mapper/product.mapper';
 
 @Component({
   selector: 'app-top-product',
@@ -7,48 +9,22 @@ import { HomeProductCard, ProductShowcase } from '../product-showcase/product-sh
   templateUrl: './top-product.html',
   styleUrl: './top-product.css',
 })
-export class TopProduct {
-  // Mock data for now (replace with ProductService later)
-  products: HomeProductCard[] = [
-    {
-      id: 1,
-      name: 'Paracetamol',
-      price: 'Rs 2.50',
-      image: '/assets/Paracetamol.jpg',
-      vendorName: 'Aaloka Pharmacy',
-      strength: '500mg',
-      form: 'Tablet',
-      quantity: '100',
-    },
-    {
-      id: 2,
-      name: 'Brufin',
-      price: 'Rs 3.20',
-      image: '/assets/Brufin.jpg',
-      vendorName: 'HealthPlus',
-      strength: '200mg',
-      form: 'Tablet',
-      quantity: '50',
-    },
-    {
-      id: 3,
-      name: 'Lisinopril',
-      price: 'Rs 1.80',
-      image: '/assets/Lisinopril.jpg',
-      vendorName: 'MediCare Hub',
-      strength: '10mg',
-      form: 'Tablet',
-      quantity: '28',
-    },
-    {
-      id: 4,
-      name: 'Metformin',
-      price: 'Rs 4.00',
-      image: '/assets/Metformin.webp',
-      vendorName: 'City Drugs',
-      strength: '500mg',
-      form: 'Tablet',
-      quantity: '60',
-    },
-  ];
+export class TopProduct implements OnInit {
+  private readonly productService = inject(ProductFeatureService);
+
+  products: HomeProductCard[] = [];
+  loading = true;
+
+  ngOnInit(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (data) => {
+        this.products = data.slice(0, 4).map(mapProductToCard);
+        this.loading = false;
+      },
+      error: () => {
+        this.products = [];
+        this.loading = false;
+      },
+    });
+  }
 }

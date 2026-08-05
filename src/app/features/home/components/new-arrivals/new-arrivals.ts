@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HomeProductCard, ProductShowcase } from '../product-showcase/product-showcase';
+import { ProductFeatureService } from '../../../products/services/product.service';
+import { mapProductToCard } from '../../mapper/product.mapper';
 
 @Component({
   selector: 'app-new-arrivals',
@@ -7,48 +9,22 @@ import { HomeProductCard, ProductShowcase } from '../product-showcase/product-sh
   templateUrl: './new-arrivals.html',
   styleUrl: './new-arrivals.css',
 })
-export class NewArrivals {
-  // Mock data for now (replace with ProductService later)
-  products: HomeProductCard[] = [
-    {
-      id: 9,
-      name: 'Lisinopril',
-      price: 'Rs 7.90',
-      image: '/assets/Lisinopril.jpg',
-      vendorName: 'MediCare Hub',
-      strength: '20mg',
-      form: 'Tablet',
-      quantity: '60',
-    },
-    {
-      id: 10,
-      name: 'Albuterol',
-      price: 'Rs 3.75',
-      image: '/assets/Albuterol.jpg',
-      vendorName: 'Wellness Mart',
-      strength: '100mcg',
-      form: 'Inhaler',
-      quantity: '1',
-    },
-    {
-      id: 11,
-      name: 'Paracetamol',
-      price: 'Rs 2.00',
-      image: '/assets/Paracetamol.jpg',
-      vendorName: 'Aaloka Pharmacy',
-      strength: '500mg',
-      form: 'Tablet',
-      quantity: '100',
-    },
-    {
-      id: 12,
-      name: 'Brufin',
-      price: 'Rs 4.50',
-      image: '/assets/Brufin.jpg',
-      vendorName: 'HealthPlus',
-      strength: '200mg',
-      form: 'Tablet',
-      quantity: '50',
-    },
-  ];
+export class NewArrivals implements OnInit {
+  private readonly productService = inject(ProductFeatureService);
+
+  products: HomeProductCard[] = [];
+  loading = true;
+
+  ngOnInit(): void {
+    this.productService.getNewArrivals(4).subscribe({
+      next: (data) => {
+        this.products = data.map(mapProductToCard);
+        this.loading = false;
+      },
+      error: () => {
+        this.products = [];
+        this.loading = false;
+      },
+    });
+  }
 }
