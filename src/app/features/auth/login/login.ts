@@ -1,4 +1,4 @@
-﻿import { Component, inject } from '@angular/core';
+﻿import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../services/login.service';
@@ -15,6 +15,8 @@ export class Login {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
+  readonly otpLength = 6;
+
   // 1 = password form, 2 = OTP form
   step: 1 | 2 = 1;
 
@@ -24,10 +26,16 @@ export class Login {
 
   otpToken = '';
   maskedEmail = '';
-  otpCode = '';
+  otpDigits: string[] = Array(this.otpLength).fill('');
 
   loading = false;
   errorMessage = '';
+
+  @ViewChildren('otpInput') otpInputs!: QueryList<ElementRef<HTMLInputElement>>;
+
+  get otpCode(): string {
+    return this.otpDigits.join('');
+  }
 
   togglePassword(): void {
     this.showPassword = !this.showPassword;
@@ -36,7 +44,7 @@ export class Login {
   /** Go back from OTP screen to password screen */
   backToPassword(): void {
     this.step = 1;
-    this.otpCode = '';
+    this.otpDigits = Array(this.otpLength).fill('');
     this.otpToken = '';
     this.maskedEmail = '';
     this.errorMessage = '';
@@ -56,8 +64,10 @@ export class Login {
         this.loading = false;
         this.otpToken = response.otpToken;
         this.maskedEmail = response.maskedEmail;
-        this.step = 2; // show OTP screen
-        // IMPORTANT: do NOT saveSession here (no JWT yet)
+        this.otpDigits = Array(this.otpLength).fill('');
+        this.step = 2;
+        // Focus first OTP box after view updates
+        setTimeout(() => this.focusOtpInput(0), 0);
       },
       error: (err) => {
         this.loading = false;
@@ -70,9 +80,47 @@ export class Login {
     });
   }
 
+  /** Handle typing one digit */
+  onOtpDigitChange(index: number, value: string): void {
+    const digit = value.replace(/\D/g, '').slice(-1);
+    const next = [...this.otpDigits];
+    next[index] = digit;
+    this.otpDigits = next;
+
+    if (digit && index < this.otpLength - 1) {
+      this.focusOtpInput(index + 1);
+    }
+  }
+
+  /** Backspace moves to previous box */
+  onOtpKeyDown(index: number, event: KeyboardEvent): void {
+    if (event.key === 'Backspace' && !this.otpDigits[index] && index > 0) {
+      event.preventDefault();
+      this.focusOtpInput(index - 1);
+    }
+  }
+
+  /** Paste full 6-digit code into the boxes */
+  onOtpPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    const pasted = (event.clipboardData?.getData('text') ?? '')
+      .replace(/\D/g, '')
+      .slice(0, this.otpLength);
+    if (!pasted) return;
+
+    const next = Array(this.otpLength).fill('');
+    for (let i = 0; i < pasted.length; i += 1) {
+      next[i] = pasted[i];
+    }
+    this.otpDigits = next;
+
+    const focusIndex = Math.min(pasted.length, this.otpLength - 1);
+    this.focusOtpInput(focusIndex);
+  }
+
   /** Step 2: verify 6-digit OTP */
   onSubmitOtp(): void {
-    const code = this.otpCode.trim();
+    const code = this.otpCode;
 
     if (!this.otpToken || !/^\d{6}$/.test(code)) {
       this.errorMessage = 'Enter the 6-digit code from your email.';
@@ -84,7 +132,6 @@ export class Login {
 
     this.loginService.verifyOtp(this.otpToken, code).subscribe({
       next: (response) => {
-        // JWT arrives only here
         this.authService.saveSession(response);
         this.loading = false;
         this.router.navigate(['/']);
@@ -98,5 +145,11 @@ export class Login {
         }
       },
     });
+  }
+
+  private focusOtpInput(index: number): void {
+    const input = this.otpInputs?.get(index)?.nativeElement;
+    input?.focus();
+    input?.select();
   }
 }
