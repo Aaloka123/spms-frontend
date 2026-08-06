@@ -3,71 +3,111 @@
 
     <h1 class="text-center text-2xl font-bold text-slate-900">Login</h1>
 
-    <p class="mt-2 text-center text-sm text-slate-500">
-      Don't have an account?
-      <a routerLink="/signup" class="font-medium text-teal-700 hover:text-teal-800">
-        Signup
-      </a>
-    </p>
+    @if (step === 1) {
+      <p class="mt-2 text-center text-sm text-slate-500">
+        Don't have an account?
+        <a routerLink="/signup" class="font-medium text-teal-700 hover:text-teal-800">
+          Signup
+        </a>
+      </p>
 
-    <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
-
-      <!-- Username -->
-      <div class="border-b border-slate-300 focus-within:border-teal-600">
-        <input
-          type="text"
-          name="username"
-          required
-          autocomplete="username"
-          placeholder="Enter your username"
-          [(ngModel)]="username"
-          class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
-        />
-      </div>
-
-      <!-- Password -->
-      <div>
-        <div class="relative border-b border-slate-300 focus-within:border-teal-600">
+      <form class="mt-8 space-y-6" (ngSubmit)="onSubmitPassword()">
+        <div class="border-b border-slate-300 focus-within:border-teal-600">
           <input
-            [type]="showPassword ? 'text' : 'password'"
-            name="password"
+            type="text"
+            name="username"
             required
-            autocomplete="current-password"
-            placeholder="Enter your password"
-            [(ngModel)]="password"
-            class="w-full bg-transparent py-2.5 pl-0 pr-9 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+            autocomplete="username"
+            placeholder="Enter your username"
+            [(ngModel)]="username"
+            class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
           />
-
-          <button
-            type="button"
-            (click)="togglePassword()"
-            class="absolute right-0 top-1/2 -translate-y-1/2 p-0.5 text-sm text-slate-500 hover:text-slate-700"
-          >
-            {{ showPassword ? 'Hide' : 'Show' }}
-          </button>
         </div>
 
-        <p class="mt-2 text-right text-sm">
-          <a routerLink="/forgetpassword" class="text-slate-600 hover:text-teal-700 hover:underline">
-            Forgot Password?
-          </a>
-        </p>
-      </div>
+        <div>
+          <div class="relative border-b border-slate-300 focus-within:border-teal-600">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              name="password"
+              required
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              [(ngModel)]="password"
+              class="w-full bg-transparent py-2.5 pl-0 pr-9 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+            />
 
-      <!-- API error message (shows only when errorMessage is not empty) -->
-      @if (errorMessage) {
-        <p class="text-sm text-rose-600">{{ errorMessage }}</p>
-      }
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-0 top-1/2 -translate-y-1/2 p-0.5 text-sm text-slate-500 hover:text-slate-700"
+            >
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
 
-      <!-- Login button -->
-      <button
-        type="submit"
-        [disabled]="loading"
-        class="w-full rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-60"
-      >
-        {{ loading ? 'Please wait…' : 'Login' }}
-      </button>
-    </form>
+          <p class="mt-2 text-right text-sm">
+            <a routerLink="/forgetpassword" class="text-slate-600 hover:text-teal-700 hover:underline">
+              Forgot Password?
+            </a>
+          </p>
+        </div>
+
+        @if (errorMessage) {
+          <p class="text-sm text-rose-600">{{ errorMessage }}</p>
+        }
+
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-60"
+        >
+          {{ loading ? 'Please wait…' : 'Login' }}
+        </button>
+      </form>
+    }
+
+    @if (step === 2) {
+      <p class="mt-2 text-center text-sm text-slate-500">
+        We sent a 6-digit code to
+        <span class="font-medium text-slate-700">{{ maskedEmail }}</span>
+      </p>
+
+      <form class="mt-8 space-y-6" (ngSubmit)="onSubmitOtp()">
+        <div class="border-b border-slate-300 focus-within:border-teal-600">
+          <input
+            type="text"
+            name="otpCode"
+            required
+            maxlength="6"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            placeholder="Enter 6-digit code"
+            [(ngModel)]="otpCode"
+            class="w-full bg-transparent px-0 py-2.5 text-center text-lg tracking-[0.35em] text-slate-800 outline-none placeholder:text-slate-400 placeholder:tracking-normal"
+          />
+        </div>
+
+        @if (errorMessage) {
+          <p class="text-sm text-rose-600">{{ errorMessage }}</p>
+        }
+
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-60"
+        >
+          {{ loading ? 'Verifying…' : 'Verify code' }}
+        </button>
+
+        <button
+          type="button"
+          (click)="backToPassword()"
+          class="w-full text-sm font-medium text-slate-600 hover:text-teal-700"
+        >
+          ← Back
+        </button>
+      </form>
+    }
 
     <p class="mt-6 text-center text-sm text-slate-600">
       By joining, you agree to the <span class="underline">Terms</span> and
