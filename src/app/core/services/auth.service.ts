@@ -8,6 +8,13 @@ export interface AuthUser {
   role: string;
 }
 
+interface JwtPayload {
+  sub?: string;
+  role?: string;
+  userId?: number;
+  exp?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,15 +37,46 @@ export class AuthService {
     );
   }
 
-  /** Read JWT token (used later by interceptor) */
+  /** Read JWT token (used by interceptor) */
   getToken(): string | null {
     if (!this.isBrowser) return null;
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  /** True if token exists */
+  /** Decode JWT payload (UI checks only — backend still enforces auth) */
+  getTokenPayload(): JwtPayload | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const base64 = token.split('.')[1];
+      if (!base64) return null;
+      const normalized = base64.replace(/-/g, '+').replace(/_/g, '/');
+      const json = atob(normalized);
+      return JSON.parse(json) as JwtPayload;
+    } catch {
+      return null;
+    }
+  }
+
+  /** True if token is missing or past exp */
+  isTokenExpired(): boolean {
+    const exp = this.getTokenPayload()?.exp;
+    if (!exp) return true;
+    return Date.now() >= exp * 1000;
+  }
+
+  /** True if a non-expired JWT exists */
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) return false;
+
+    if (this.isTokenExpired()) {
+      this.logout();
+      return false;
+    }
+
+    return true;
   }
 
   /** Logged-in user from localStorage (or null) */
@@ -55,15 +93,20 @@ export class AuthService {
 
   /** Display name for header */
   getUsername(): string | null {
-    return this.getCurrentUser()?.username ?? null;
+    return this.getCurrentUser()?.username ?? this.getTokenPayload()?.sub ?? null;
   }
 
-  /** Role from login response (ADMIN | USER | PHARMACIST) */
+  /**
+   * Role from JWT claim first (harder to fake by editing authUser only),
+   * then fall back to stored login response.
+   */
   getRole(): string | null {
+    const fromJwt = this.getTokenPayload()?.role;
+    if (fromJwt) return fromJwt;
     return this.getCurrentUser()?.role ?? null;
   }
 
-  /** True when the logged-in account is the system admin */
+  /** True when the logged-in account is ADMIN */
   isAdmin(): boolean {
     return this.getRole() === 'ADMIN';
   }

@@ -1,6 +1,6 @@
-﻿import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
+﻿import { Component, ElementRef, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -10,10 +10,11 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
   private readonly loginService = inject(LoginService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   readonly otpLength = 6;
 
@@ -30,6 +31,16 @@ export class Login {
 
   loading = false;
   errorMessage = '';
+  successMessage = '';
+
+  ngOnInit(): void {
+    const registered = this.route.snapshot.queryParamMap.get('registered');
+    if (registered === '1') {
+      this.successMessage = 'Account created. Please log in.';
+    } else if (registered === 'exists') {
+      this.successMessage = 'That email is already registered. Please log in.';
+    }
+  }
 
   @ViewChildren('otpInput') otpInputs!: QueryList<ElementRef<HTMLInputElement>>;
 

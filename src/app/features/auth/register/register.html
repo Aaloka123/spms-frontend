@@ -8,16 +8,29 @@
     </p>
 
     <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
-      <div class="border-b border-slate-300 transition-colors duration-75 focus-within:border-teal-600">
-        <input
-          type="text"
-          name="fullName"
-          required
-          autocomplete="name"
-          placeholder="Enter your full name"
-          [(ngModel)]="fullName"
-          class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
-        />
+      <div class="grid grid-cols-2 gap-4">
+        <div class="border-b border-slate-300 transition-colors duration-75 focus-within:border-teal-600">
+          <input
+            type="text"
+            name="firstName"
+            required
+            autocomplete="given-name"
+            placeholder="First Name"
+            [(ngModel)]="firstName"
+            class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+          />
+        </div>
+        <div class="border-b border-slate-300 transition-colors duration-75 focus-within:border-teal-600">
+          <input
+            type="text"
+            name="lastName"
+            required
+            autocomplete="family-name"
+            placeholder="Last Name"
+            [(ngModel)]="lastName"
+            class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+          />
+        </div>
       </div>
 
       <div class="border-b border-slate-300 transition-colors duration-75 focus-within:border-teal-600">
@@ -26,8 +39,20 @@
           name="email"
           required
           autocomplete="email"
-          placeholder="Enter your email address"
+          placeholder="Email"
           [(ngModel)]="email"
+          class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+        />
+      </div>
+
+      <div class="border-b border-slate-300 transition-colors duration-75 focus-within:border-teal-600">
+        <input
+          type="email"
+          name="confirmEmail"
+          required
+          autocomplete="email"
+          placeholder="Confirm Email"
+          [(ngModel)]="confirmEmail"
           class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
         />
       </div>
@@ -40,7 +65,7 @@
           inputmode="numeric"
           maxlength="10"
           autocomplete="tel"
-          placeholder="10 digit number"
+          placeholder="Phone Number"
           [ngModel]="phoneNumber"
           (ngModelChange)="onPhoneChange($event)"
           class="w-full bg-transparent px-0 py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
@@ -55,7 +80,7 @@
             required
             minlength="8"
             autocomplete="new-password"
-            placeholder="Enter your password"
+            placeholder="Password"
             [(ngModel)]="password"
             class="w-full bg-transparent py-2.5 pl-0 pr-9 text-sm text-slate-800 outline-none placeholder:text-slate-400"
           />
@@ -87,7 +112,7 @@
             required
             minlength="8"
             autocomplete="new-password"
-            placeholder="Confirm your password"
+            placeholder="Confirm Password"
             [(ngModel)]="confirmPassword"
             class="w-full bg-transparent py-2.5 pl-0 pr-9 text-sm text-slate-800 outline-none placeholder:text-slate-400"
           />
@@ -120,7 +145,7 @@
         [disabled]="loading"
         class="w-full cursor-pointer rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {{ loading ? 'Signing up…' : 'Signup' }}
+        {{ loading ? 'Creating account...' : 'Create Account' }}
       </button>
     </form>
 

@@ -11,6 +11,10 @@
         </a>
       </p>
 
+      @if (successMessage) {
+        <p class="mt-4 text-center text-sm text-teal-700">{{ successMessage }}</p>
+      }
+
       <form class="mt-8 space-y-6" (ngSubmit)="onSubmitPassword()">
         <div class="border-b border-slate-300 focus-within:border-teal-600">
           <input

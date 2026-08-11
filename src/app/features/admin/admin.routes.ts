@@ -7,6 +7,7 @@ export const adminRoutes: Routes = [
   {
     path: 'admin',
     canActivate: [adminGuard],
+    canActivateChild: [adminGuard],
     component: AdminLayout,
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },

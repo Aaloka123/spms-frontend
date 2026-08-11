@@ -2,7 +2,10 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-/** Allows only logged-in users with role ADMIN. */
+/**
+ * Blocks /admin/* unless the user is logged in with role ADMIN.
+ * Used for both parent and child routes so URL hacking cannot open pages.
+ */
 export const adminGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);

@@ -7,14 +7,7 @@ export interface RegisterRequest {
   password: string;
   phoneNumber?: string;
   address?: string;
-  roleId: number;
-}
-
-/** Matches backend RoleResponseDTO */
-export interface RoleDto {
-  roleId: number;
-  roleName: string;
-  description?: string;
+  roleId?: number;
 }
 
 /** Matches backend UserResponseDTO (fields we care about after signup) */
