@@ -58,6 +58,16 @@ export class AuthService {
     return this.getCurrentUser()?.username ?? null;
   }
 
+  /** Role from login response (ADMIN | USER | PHARMACIST) */
+  getRole(): string | null {
+    return this.getCurrentUser()?.role ?? null;
+  }
+
+  /** True when the logged-in account is the system admin */
+  isAdmin(): boolean {
+    return this.getRole() === 'ADMIN';
+  }
+
   /** Clear session on logout */
   logout(): void {
     if (!this.isBrowser) return;

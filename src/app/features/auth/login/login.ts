@@ -134,7 +134,12 @@ export class Login {
       next: (response) => {
         this.authService.saveSession(response);
         this.loading = false;
-        this.router.navigate(['/']);
+
+        if (response.role === 'ADMIN') {
+          void this.router.navigate(['/admin/dashboard']);
+        } else {
+          void this.router.navigate(['/']);
+        }
       },
       error: (err) => {
         this.loading = false;
