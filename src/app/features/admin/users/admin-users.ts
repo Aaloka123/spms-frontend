@@ -28,6 +28,7 @@ export class AdminUsers implements OnInit {
 
     this.userService.getAllUsers().subscribe({
       next: (data) => {
+        // Show everyone returned by the API (no role filtering)
         this.allUsers = data;
         this.applySearch();
         this.loading = false;
@@ -50,6 +51,11 @@ export class AdminUsers implements OnInit {
     this.applySearch();
   }
 
+  /** Visual only — profile page not built yet */
+  openProfile(_userId: number): void {
+    // no-op
+  }
+
   private applySearch(): void {
     const q = this.searchText.trim().toLowerCase();
 
@@ -59,13 +65,15 @@ export class AdminUsers implements OnInit {
     }
 
     this.users = this.allUsers.filter((user) => {
-      const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
-      return (
-        fullName.includes(q) ||
-        user.username.toLowerCase().includes(q) ||
-        user.email.toLowerCase().includes(q) ||
-        (user.roleName ?? '').toLowerCase().includes(q)
-      );
+      const haystack = [
+        this.displayName(user),
+        user.username,
+        user.email,
+        user.address ?? '',
+        user.phoneNumber ?? '',
+        user.roleName ?? '',
+      ];
+      return haystack.some((value) => value.toLowerCase().includes(q));
     });
   }
 
