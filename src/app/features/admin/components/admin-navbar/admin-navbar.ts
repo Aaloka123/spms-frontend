@@ -42,14 +42,6 @@ export class AdminNavbar {
     { label: 'Setting', path: '/admin/settings', icon: 'settings' },
   ];
 
-  get username(): string {
-    return this.authService.getUsername() ?? 'Admin';
-  }
-
-  get initial(): string {
-    return this.username.trim().charAt(0).toUpperCase() || 'A';
-  }
-
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }

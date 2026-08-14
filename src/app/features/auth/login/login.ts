@@ -67,6 +67,9 @@ export class Login implements OnInit {
       return;
     }
 
+    // Clear any previous session so an old admin JWT cannot leak into this login
+    this.authService.logout();
+
     this.loading = true;
     this.errorMessage = '';
 
@@ -146,7 +149,11 @@ export class Login implements OnInit {
         this.authService.saveSession(response);
         this.loading = false;
 
-        if (response.role === 'ADMIN') {
+        const role = (response.role ?? '').trim().toUpperCase();
+        const username = (response.username ?? '').trim().toLowerCase();
+
+        // Only username "admin" with ADMIN role goes to admin portal
+        if (role === 'ADMIN' && username === 'admin') {
           void this.router.navigate(['/admin/dashboard']);
         } else {
           void this.router.navigate(['/']);

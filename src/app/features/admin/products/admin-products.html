@@ -1,0 +1,167 @@
+<section>
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">Admin Products</h1>
+      <p class="mt-1 text-sm text-slate-600">
+        Manage pharmacy products.
+        @if (!loading && !errorMessage) {
+          <span class="ml-2 text-slate-500">({{ allProducts.length }} total)</span>
+        }
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearch()"
+        class="w-64 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+      />
+      <button
+        type="button"
+        class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
+        (click)="openCreate()"
+      >
+        Add Product
+      </button>
+    </div>
+  </div>
+
+  <section class="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-left">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">No.</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Product</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Brand</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Price (NPR)</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Stock</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Expiry</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Expired</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Active</th>
+            <th class="px-5 py-3 text-sm font-semibold text-slate-700">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (loading) {
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4 text-sm text-slate-500" colspan="9">Loading products…</td>
+            </tr>
+          } @else if (errorMessage) {
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4 text-sm text-rose-600" colspan="9">{{ errorMessage }}</td>
+            </tr>
+          } @else if (products.length === 0) {
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4 text-sm text-slate-500" colspan="9">No products found.</td>
+            </tr>
+          } @else {
+            @for (p of products; track p.id; let i = $index) {
+              <tr
+                class="border-t border-slate-200"
+                [class.bg-rose-50]="isExpired(p.expiryDate) || p.isActive === false"
+              >
+                <td class="px-5 py-3 text-sm">{{ i + 1 }}</td>
+                <td class="px-5 py-3 text-sm font-medium text-slate-900">
+                  {{ p.productName }}
+                  <p class="text-xs font-normal text-slate-500">{{ p.genericName || '—' }}</p>
+                </td>
+                <td class="px-5 py-3 text-sm">{{ p.brand || '—' }}</td>
+                <td class="px-5 py-3 text-sm font-semibold">{{ formatPrice(p.sellingPrice) }}</td>
+                <td class="px-5 py-3 text-sm">{{ p.stockQuantity }}</td>
+                <td class="px-5 py-3 text-sm">{{ formatExpiry(p.expiryDate) }}</td>
+                <td class="px-5 py-3">
+                  <span
+                    class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+                    [class.bg-rose-100]="isExpired(p.expiryDate)"
+                    [class.text-rose-700]="isExpired(p.expiryDate)"
+                    [class.bg-emerald-100]="!isExpired(p.expiryDate)"
+                    [class.text-emerald-700]="!isExpired(p.expiryDate)"
+                  >
+                    {{ isExpired(p.expiryDate) ? 'Yes' : 'No' }}
+                  </span>
+                </td>
+                <td class="px-5 py-3">
+                  <span
+                    class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+                    [class.bg-emerald-100]="p.isActive !== false"
+                    [class.text-emerald-700]="p.isActive !== false"
+                    [class.bg-slate-100]="p.isActive === false"
+                    [class.text-slate-700]="p.isActive === false"
+                  >
+                    {{ p.isActive === false ? 'No' : 'Yes' }}
+                  </span>
+                </td>
+                <td class="px-5 py-3">
+                  <div class="flex gap-2">
+                    <button type="button" class="rounded-lg bg-teal-600 px-3 py-1.5 text-xs font-semibold text-white" (click)="openEdit(p)">Edit</button>
+                    <button type="button" class="rounded-lg border border-rose-300 px-3 py-1.5 text-xs font-semibold text-rose-700" [disabled]="p.isActive === false" (click)="deleteProduct(p)">Deactivate</button>
+                  </div>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+
+@if (showForm) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+    <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-slate-900">
+        {{ editingId == null ? 'Add Product' : 'Edit Product' }}
+      </h2>
+
+      @if (formError) {
+        <p class="mt-3 text-sm text-rose-600">{{ formError }}</p>
+      }
+
+      <form class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2" (ngSubmit)="saveProduct()">
+        <label class="text-sm">Product name*
+          <input class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.productName" name="productName" required />
+        </label>
+        <label class="text-sm">Generic name*
+          <input class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.genericName" name="genericName" required />
+        </label>
+        <label class="text-sm">Brand*
+          <input class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.brand" name="brand" required />
+        </label>
+        <label class="text-sm">Dosage form*
+          <input class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.dosageForm" name="dosageForm" required />
+        </label>
+        <label class="text-sm">Strength*
+          <input class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.strength" name="strength" required />
+        </label>
+        <label class="text-sm">Expiry date* (future)
+          <input type="date" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.expiryDate" name="expiryDate" required />
+        </label>
+        <label class="text-sm">Purchase price*
+          <input type="number" min="0.01" step="0.01" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.purchasePrice" name="purchasePrice" required />
+        </label>
+        <label class="text-sm">Selling price*
+          <input type="number" min="0.01" step="0.01" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.sellingPrice" name="sellingPrice" required />
+        </label>
+        <label class="text-sm">Stock*
+          <input type="number" min="0" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.stockQuantity" name="stockQuantity" required />
+        </label>
+        <label class="text-sm">Reorder level*
+          <input type="number" min="0" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.reorderLevel" name="reorderLevel" required />
+        </label>
+        <label class="sm:col-span-2 text-sm">Description
+          <textarea rows="3" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" [(ngModel)]="form.description" name="description"></textarea>
+        </label>
+
+        <div class="sm:col-span-2 mt-2 flex justify-end gap-2">
+          <button type="button" class="rounded-lg border border-slate-300 px-4 py-2 text-sm" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60" [disabled]="saving">
+            {{ saving ? 'Saving…' : 'Save' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

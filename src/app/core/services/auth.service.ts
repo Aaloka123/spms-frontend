@@ -52,7 +52,9 @@ export class AuthService {
       const base64 = token.split('.')[1];
       if (!base64) return null;
       const normalized = base64.replace(/-/g, '+').replace(/_/g, '/');
-      const json = atob(normalized);
+      const padded =
+        normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
+      const json = atob(padded);
       return JSON.parse(json) as JwtPayload;
     } catch {
       return null;
@@ -102,13 +104,17 @@ export class AuthService {
    */
   getRole(): string | null {
     const fromJwt = this.getTokenPayload()?.role;
-    if (fromJwt) return fromJwt;
-    return this.getCurrentUser()?.role ?? null;
+    if (fromJwt) return fromJwt.trim();
+    const fromUser = this.getCurrentUser()?.role;
+    return fromUser?.trim() ?? null;
   }
 
-  /** True when the logged-in account is ADMIN */
+  /** True when this session is the system admin portal account */
   isAdmin(): boolean {
-    return this.getRole() === 'ADMIN';
+    const role = this.getRole()?.toUpperCase();
+    const username = this.getUsername()?.trim().toLowerCase();
+    // Only the seeded admin username with ADMIN role may use /admin
+    return role === 'ADMIN' && username === 'admin';
   }
 
   /** Clear session on logout */
