@@ -1,1 +1,29 @@
-﻿
+﻿<section class="bg-white px-4 py-8 md:px-8 lg:px-[80px]">
+  <a routerLink="/products" class="text-sm font-medium text-teal-700 hover:underline">
+    ← Back to products
+  </a>
+
+  @if (loading) {
+    <p class="mt-6 text-sm text-slate-500">Loading…</p>
+  } @else if (errorMessage) {
+    <p class="mt-6 text-sm text-rose-600">{{ errorMessage }}</p>
+  } @else if (product) {
+    <div class="mt-6 grid gap-8 lg:grid-cols-2">
+      <img
+        [src]="imageFor(product)"
+        [alt]="product.productName"
+        class="h-80 w-full rounded-3xl border border-slate-200 object-contain p-4"
+      />
+
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">{{ product.productName }}</h1>
+        <p class="mt-2 text-slate-600">
+          {{ product.brand }} · {{ product.dosageForm }} · {{ product.strength }}
+        </p>
+        <p class="mt-4 text-2xl font-bold text-teal-700">Rs {{ product.sellingPrice }}</p>
+        <p class="mt-2 text-sm text-slate-600">Stock: {{ product.stockQuantity }}</p>
+        <p class="mt-6 text-slate-700">{{ product.description || 'No description.' }}</p>
+      </div>
+    </div>
+  }
+</section>

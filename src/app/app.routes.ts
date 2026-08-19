@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { Home } from './features/home/home';
 import { ProductList } from './features/products/components/product-list/product-list';
+import { ProductDetail } from './features/products/components/product-detail/product-detail';
 import { About } from './features/about/about';
 import { Contacts } from './features/contacts/contacts';
 import { Login } from './features/auth/login/login';
@@ -12,6 +13,7 @@ import { guestGuard } from './core/guards/guest.guard';
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'products', component: ProductList },
+  { path: 'products/:id', component: ProductDetail },
   { path: 'about', component: About },
   { path: 'contacts', component: Contacts },
   { path: 'login', component: Login, canActivate: [guestGuard] },

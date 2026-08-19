@@ -19,7 +19,8 @@ export class AdminDashboard implements OnInit {
   ngOnInit(): void {
     this.username = this.authService.getUsername() ?? 'Admin';
 
-    this.productService.getAllProducts().subscribe({
+    // Use admin endpoint so count includes inactive products
+    this.productService.getAllProductsForAdmin().subscribe({
       next: (products) => {
         this.productCount = products.length;
         this.loading = false;

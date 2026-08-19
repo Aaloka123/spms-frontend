@@ -74,7 +74,7 @@ export class ProductList implements OnInit {
   }
 
   openProduct(productId: number): void {
-    void this.router.navigate(['/products'], { queryParams: { id: productId } });
+    void this.router.navigate(['/products', productId]);
   }
 
   onAddToCart(event: Event, product: CatalogProduct): void {
