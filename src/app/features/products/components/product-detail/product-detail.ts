@@ -48,6 +48,20 @@ export class ProductDetail implements OnInit {
     return Number.isNaN(date.getTime()) ? expiryDate : date.toLocaleDateString();
   }
 
+  stockLabel(stock: number | undefined): string {
+    const qty = Number(stock ?? 0);
+    if (qty <= 0) return 'Out of Stock';
+    if (qty <= 10) return 'Low Stock';
+    return 'In Stock';
+  }
+
+  stockTone(stock: number | undefined): string {
+    const qty = Number(stock ?? 0);
+    if (qty <= 0) return 'bg-slate-100 text-slate-600';
+    if (qty <= 10) return 'bg-rose-100 text-rose-700';
+    return 'bg-emerald-100 text-emerald-700';
+  }
+
   imageFor(product: Product): string {
     const key = `${product.productName} ${product.genericName ?? ''}`.toLowerCase();
 

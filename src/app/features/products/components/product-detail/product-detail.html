@@ -20,6 +20,11 @@
         <p class="mt-2 text-slate-600">
           {{ product.brand }} · {{ product.dosageForm }} · {{ product.strength }}
         </p>
+        <span
+          class="mt-3 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ stockTone(product.stockQuantity) }}"
+        >
+          {{ stockLabel(product.stockQuantity) }}
+        </span>
         <p class="mt-4 text-2xl font-bold text-teal-700">Rs {{ formatPrice(product.sellingPrice) }}</p>
         <p class="mt-2 text-sm text-slate-600">Stock: {{ product.stockQuantity }}</p>
         <p class="mt-1 text-sm text-slate-600">Expiry: {{ formatExpiry(product.expiryDate) }}</p>
