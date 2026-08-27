@@ -20,8 +20,9 @@
         <p class="mt-2 text-slate-600">
           {{ product.brand }} · {{ product.dosageForm }} · {{ product.strength }}
         </p>
-        <p class="mt-4 text-2xl font-bold text-teal-700">Rs {{ product.sellingPrice }}</p>
+        <p class="mt-4 text-2xl font-bold text-teal-700">Rs {{ formatPrice(product.sellingPrice) }}</p>
         <p class="mt-2 text-sm text-slate-600">Stock: {{ product.stockQuantity }}</p>
+        <p class="mt-1 text-sm text-slate-600">Expiry: {{ formatExpiry(product.expiryDate) }}</p>
         <p class="mt-6 text-slate-700">{{ product.description || 'No description.' }}</p>
       </div>
     </div>

@@ -38,6 +38,16 @@ export class ProductDetail implements OnInit {
     });
   }
 
+  formatPrice(value: number | undefined): string {
+    return Number(value ?? 0).toLocaleString();
+  }
+
+  formatExpiry(expiryDate?: string): string {
+    if (!expiryDate) return '—';
+    const date = new Date(expiryDate);
+    return Number.isNaN(date.getTime()) ? expiryDate : date.toLocaleDateString();
+  }
+
   imageFor(product: Product): string {
     const key = `${product.productName} ${product.genericName ?? ''}`.toLowerCase();
 
