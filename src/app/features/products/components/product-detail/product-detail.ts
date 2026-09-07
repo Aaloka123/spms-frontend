@@ -62,6 +62,15 @@ export class ProductDetail implements OnInit {
     return 'bg-emerald-100 text-emerald-700';
   }
 
+  isExpired(expiryDate?: string): boolean {
+    if (!expiryDate) return false;
+    const date = new Date(expiryDate);
+    if (Number.isNaN(date.getTime())) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  }
+
   imageFor(product: Product): string {
     const key = `${product.productName} ${product.genericName ?? ''}`.toLowerCase();
 
