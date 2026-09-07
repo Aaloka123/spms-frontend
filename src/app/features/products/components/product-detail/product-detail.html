@@ -1,27 +1,33 @@
-﻿<section class="bg-white px-4 py-8 md:px-8 lg:px-[80px]">
-  <a routerLink="/products" class="text-sm font-medium text-teal-700 hover:underline">
-    ← Back to products
-  </a>
+﻿<section class="bg-gradient-to-b from-slate-50 to-white px-4 py-8 md:px-8 lg:px-[80px]">
+  <nav class="text-sm text-slate-500">
+    <a routerLink="/" class="hover:text-teal-700">Home</a>
+    <span class="mx-2">/</span>
+    <a routerLink="/products" class="hover:text-teal-700">Products</a>
+    <span class="mx-2">/</span>
+    <span class="font-medium text-slate-800">{{ product?.productName || 'Details' }}</span>
+  </nav>
 
   @if (loading) {
-    <p class="mt-6 text-sm text-slate-500">Loading product details…</p>
+    <p class="mt-8 text-sm text-slate-500">Loading product details…</p>
   } @else if (errorMessage) {
-    <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3">
+    <div class="mt-8 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-4">
       <p class="text-sm text-rose-700">{{ errorMessage }}</p>
       <a routerLink="/products" class="mt-2 inline-block text-sm font-medium text-teal-700 hover:underline">
         Browse all products
       </a>
     </div>
   } @else if (product) {
-    <div class="mt-6 grid gap-8 lg:grid-cols-2">
-      <img
-        [src]="imageFor(product)"
-        [alt]="product.productName"
-        class="h-80 w-full rounded-3xl border border-slate-200 object-contain p-4"
-      />
+    <div class="mt-8 grid gap-8 lg:grid-cols-2">
+      <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+        <img
+          [src]="imageFor(product)"
+          [alt]="product.productName"
+          class="h-80 w-full rounded-2xl object-contain"
+        />
+      </div>
 
-      <div>
-        <h1 class="text-3xl font-bold text-slate-900">{{ product.productName }}</h1>
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900">{{ product.productName }}</h1>
         @if (product.genericName) {
           <p class="mt-1 text-sm text-slate-500">Generic: {{ product.genericName }}</p>
         }
@@ -30,12 +36,12 @@
         </p>
 
         <span
-          class="mt-3 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ stockTone(product.stockQuantity) }}"
+          class="mt-4 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ stockTone(product.stockQuantity) }}"
         >
           {{ stockLabel(product.stockQuantity) }}
         </span>
 
-        <p class="mt-4 text-2xl font-bold text-teal-700">Rs {{ formatPrice(product.sellingPrice) }}</p>
+        <p class="mt-5 text-3xl font-bold text-teal-700">Rs {{ formatPrice(product.sellingPrice) }}</p>
         <p class="mt-2 text-sm text-slate-600">Stock: {{ product.stockQuantity }}</p>
         <p class="mt-1 text-sm text-slate-600">
           Expiry: {{ formatExpiry(product.expiryDate) }}
@@ -44,7 +50,7 @@
           }
         </p>
 
-        <div class="mt-5 grid grid-cols-3 gap-3 rounded-xl bg-slate-50 p-4 text-sm">
+        <div class="mt-6 grid grid-cols-3 gap-3 rounded-2xl bg-slate-50 p-4 text-sm">
           <div>
             <p class="text-xs uppercase tracking-wide text-slate-400">Brand</p>
             <p class="mt-1 font-semibold text-slate-700">{{ product.brand || '—' }}</p>
@@ -61,19 +67,21 @@
 
         <div class="mt-6">
           <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Description</h2>
-          <p class="mt-2 text-slate-700">{{ product.description || 'No description available for this product.' }}</p>
+          <p class="mt-2 leading-relaxed text-slate-700">
+            {{ product.description || 'No description available for this product.' }}
+          </p>
         </div>
 
         <div class="mt-8 flex flex-wrap gap-3">
           <a
             routerLink="/products"
-            class="inline-flex rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
+            class="inline-flex rounded-full bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
           >
             Continue shopping
           </a>
           <a
             routerLink="/contacts"
-            class="inline-flex rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            class="inline-flex rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
           >
             Ask a pharmacist
           </a>
