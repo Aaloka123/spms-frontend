@@ -59,14 +59,25 @@
           </div>
         </div>
 
-        <p class="mt-6 text-slate-700">{{ product.description || 'No description.' }}</p>
+        <div class="mt-6">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Description</h2>
+          <p class="mt-2 text-slate-700">{{ product.description || 'No description available for this product.' }}</p>
+        </div>
 
-        <a
-          routerLink="/products"
-          class="mt-8 inline-flex rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
-        >
-          Continue shopping
-        </a>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            routerLink="/products"
+            class="inline-flex rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
+          >
+            Continue shopping
+          </a>
+          <a
+            routerLink="/contacts"
+            class="inline-flex rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Ask a pharmacist
+          </a>
+        </div>
       </div>
     </div>
   }
