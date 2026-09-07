@@ -12,4 +12,6 @@ export class Footer {
   // later: connect to AuthService
   // for now always show "Become a vendor"
   isLoggedIn = false;
+
+  readonly currentYear = new Date().getFullYear();
 }

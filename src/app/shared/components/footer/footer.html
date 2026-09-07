@@ -1,6 +1,6 @@
 <!-- top border + same background as header -->
-<footer class="border-t border-slate-200 bg-[#F8FAFC]">
-  <div class="px-4 py-12 md:px-8 lg:px-[80px]">
+<footer class="border-t border-slate-200 bg-gradient-to-b from-[#F8FAFC] to-slate-100">
+  <div class="px-4 py-14 md:px-8 lg:px-[80px]">
     <!-- 4 columns on large screens -->
     <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -15,18 +15,20 @@
           A modern pharmacy management platform built for safer workflows,
           faster operations, and better care outcomes.
         </p>
+        <p class="mt-5 text-sm font-semibold text-teal-800">Trusted medicines. Clear care.</p>
       </div>
 
       <!-- Column 2: Quick Links -->
       <div>
-        <h4 class="text-[16px] font-[600] text-teal-700">Quick Links</h4>
+        <h4 class="text-[16px] font-semibold text-teal-700">Quick Links</h4>
+        <div class="mt-2 h-0.5 w-10 rounded-full bg-teal-600"></div>
         <ul class="mt-4 space-y-2.5 text-[14px] text-slate-600">
           <li>
             <a
               routerLink="/"
-              routerLinkActive="font-[600] text-slate-900"
+              routerLinkActive="font-semibold text-slate-900"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="cursor-pointer transition hover:text-slate-900"
+              class="cursor-pointer transition hover:text-teal-700"
             >
               Home
             </a>
@@ -34,8 +36,8 @@
           <li>
             <a
               routerLink="/products"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
+              routerLinkActive="font-semibold text-slate-900"
+              class="cursor-pointer transition hover:text-teal-700"
             >
               Product
             </a>
@@ -43,8 +45,8 @@
           <li>
             <a
               routerLink="/about"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
+              routerLinkActive="font-semibold text-slate-900"
+              class="cursor-pointer transition hover:text-teal-700"
             >
               About
             </a>
@@ -52,8 +54,8 @@
           <li>
             <a
               routerLink="/contacts"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
+              routerLinkActive="font-semibold text-slate-900"
+              class="cursor-pointer transition hover:text-teal-700"
             >
               Contacts
             </a>
@@ -63,34 +65,34 @@
 
       <!-- Column 3: Company -->
       <div>
-        <h4 class="text-[16px] font-[600] text-teal-700">Company</h4>
+        <h4 class="text-[16px] font-semibold text-teal-700">Company</h4>
+        <div class="mt-2 h-0.5 w-10 rounded-full bg-teal-600"></div>
         <ul class="mt-4 space-y-2.5 text-[14px] text-slate-600">
           <li>
-            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+            <a routerLink="/about" class="cursor-pointer transition hover:text-teal-700">
               About Us
             </a>
           </li>
           <li>
-            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Careers
             </a>
           </li>
           <li>
-            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Blog
             </a>
           </li>
           <li>
-            <a routerLink="/contacts" class="cursor-pointer transition hover:text-slate-900">
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Contact Us
             </a>
           </li>
 
-          <!-- show only when user is NOT logged in -->
           @if (!isLoggedIn) {
             <li>
               <a
-                routerLink="/vendorsignup"
+                routerLink="/contacts"
                 class="cursor-pointer font-semibold text-teal-700 underline underline-offset-2 transition hover:text-teal-800"
               >
                 Become a vendor
@@ -102,47 +104,43 @@
 
       <!-- Column 4: Support -->
       <div>
-        <h4 class="text-[16px] font-[600] text-teal-700">Support</h4>
+        <h4 class="text-[16px] font-semibold text-teal-700">Support</h4>
+        <div class="mt-2 h-0.5 w-10 rounded-full bg-teal-600"></div>
         <ul class="mt-4 space-y-2.5 text-[14px] text-slate-600">
           <li>
-            <a
-              routerLink="/contacts"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
-            >
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Help Center
             </a>
           </li>
           <li>
-            <a
-              routerLink="/contacts"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
-            >
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Privacy Policy
             </a>
           </li>
           <li>
-            <a
-              routerLink="/contacts"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
-            >
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Terms of Service
             </a>
           </li>
           <li>
-            <a
-              routerLink="/contacts"
-              routerLinkActive="font-[600] text-slate-900"
-              class="cursor-pointer transition hover:text-slate-900"
-            >
+            <a routerLink="/contacts" class="cursor-pointer transition hover:text-teal-700">
               Contact Support
             </a>
           </li>
         </ul>
+        <p class="mt-5 text-sm text-slate-500">
+          Need help?
+          <a routerLink="/contacts" class="font-semibold text-teal-700 hover:underline">Talk to us</a>
+        </p>
       </div>
 
+    </div>
+  </div>
+
+  <div class="border-t border-slate-200/80 bg-white/60 px-4 py-4 md:px-8 lg:px-[80px]">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-xs text-slate-500">© {{ currentYear }} MedNexus. All rights reserved.</p>
+      <p class="text-xs text-slate-500">Pharmacy management for modern care teams.</p>
     </div>
   </div>
 </footer>
