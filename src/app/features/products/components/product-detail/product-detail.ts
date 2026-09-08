@@ -71,6 +71,25 @@ export class ProductDetail implements OnInit {
     return date < today;
   }
 
+  daysUntilExpiry(expiryDate?: string): number | null {
+    if (!expiryDate) return null;
+    const date = new Date(expiryDate);
+    if (Number.isNaN(date.getTime())) return null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+    return Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  }
+
+  expiryHint(expiryDate?: string): string {
+    const days = this.daysUntilExpiry(expiryDate);
+    if (days === null) return '';
+    if (days < 0) return 'This product has expired.';
+    if (days === 0) return 'Expires today.';
+    if (days <= 30) return `Expires in ${days} days.`;
+    return 'Shelf life looks good.';
+  }
+
   imageFor(product: Product): string {
     const key = `${product.productName} ${product.genericName ?? ''}`.toLowerCase();
 
