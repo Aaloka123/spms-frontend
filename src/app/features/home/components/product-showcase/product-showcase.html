@@ -22,8 +22,7 @@
         @for (product of products; track product.id) {
           <a
             class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md"
-            [routerLink]="['/products']"
-            [queryParams]="{ id: product.id }"
+            [routerLink]="['/products', product.id]"
           >
             @if (product.image) {
               <img

@@ -18,7 +18,10 @@ export class TopProduct implements OnInit {
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe({
       next: (data) => {
-        this.products = data.slice(0, 4).map(mapProductToCard);
+        this.products = [...data]
+          .sort((a, b) => b.stockQuantity - a.stockQuantity)
+          .slice(0, 4)
+          .map(mapProductToCard);
         this.loading = false;
       },
       error: () => {
