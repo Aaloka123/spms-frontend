@@ -1,8 +1,18 @@
-<!-- Home page section order -->
+<!-- Home page section order (MedNexus Home.tsx parity) -->
 <app-hero />
-<app-guarantee />
-<app-top-product />
-<app-product-suggestion />
+<div appFadeInOnScroll>
+  <app-guarantee />
+</div>
+<div appFadeInOnScroll [fadeDelay]="80">
+  <app-top-product />
+</div>
+<div appFadeInOnScroll [fadeDelay]="120">
+  <app-product-suggestion />
+</div>
 <app-faq />
-<app-new-arrivals />
-<app-cta />
+<div appFadeInOnScroll [fadeDelay]="100">
+  <app-new-arrivals />
+</div>
+<div appFadeInOnScroll [fadeDelay]="80">
+  <app-cta />
+</div>

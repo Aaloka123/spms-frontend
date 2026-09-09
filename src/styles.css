@@ -13,3 +13,27 @@ body {
   margin: 0;
   font-family: system-ui, sans-serif;
 }
+
+/* MedNexus FadeInOnScroll parity */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s ease-out,
+    transform 0.65s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+

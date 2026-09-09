@@ -6,8 +6,9 @@ import { ProductSuggestion } from './components/product-suggestion/product-sugge
 import { Faq } from './components/faq/faq';
 import { NewArrivals } from './components/new-arrivals/new-arrivals';
 import { Cta } from './components/cta/cta';
+import { FadeInOnScrollDirective } from '../../shared/directives/fade-in-on-scroll.directive';
 
-// Home page: hero, partners, products, FAQ, CTA
+// Home page: hero, partners, products, FAQ, CTA (MedNexus order)
 @Component({
   selector: 'app-home',
   imports: [
@@ -18,6 +19,7 @@ import { Cta } from './components/cta/cta';
     Faq,
     NewArrivals,
     Cta,
+    FadeInOnScrollDirective,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
