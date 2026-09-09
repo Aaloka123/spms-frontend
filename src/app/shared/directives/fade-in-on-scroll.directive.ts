@@ -1,0 +1,52 @@
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  inject,
+} from '@angular/core';
+
+/** MedNexus-style fade-up when the section enters the viewport */
+@Directive({
+  selector: '[appFadeInOnScroll]',
+})
+export class FadeInOnScrollDirective implements AfterViewInit, OnDestroy {
+  private readonly el = inject(ElementRef<HTMLElement>);
+  private observer: IntersectionObserver | null = null;
+
+  /** Optional delay in ms before the transition starts (MedNexus FadeInOnScroll delay) */
+  @Input() fadeDelay = 0;
+
+  ngAfterViewInit(): void {
+    const node = this.el.nativeElement;
+    node.classList.add('scroll-fade-in');
+
+    if (this.fadeDelay > 0) {
+      node.style.transitionDelay = `${this.fadeDelay}ms`;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      node.classList.add('is-visible');
+      return;
+    }
+
+    this.observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          node.classList.add('is-visible');
+          this.observer?.disconnect();
+          this.observer = null;
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    );
+
+    this.observer.observe(node);
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    this.observer = null;
+  }
+}

@@ -5,7 +5,7 @@ export function mapProductToCard(product: Product): HomeProductCard {
   return {
     id: product.id,
     name: product.productName,
-    price: `Rs ${product.sellingPrice}`,
+    price: `Rs ${Number(product.sellingPrice).toLocaleString()}`,
     image: getLocalImage(product.productName, product.genericName),
     vendorName: undefined,
     strength: product.strength,
