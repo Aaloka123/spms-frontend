@@ -1,9 +1,11 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Directive,
   ElementRef,
   Input,
   OnDestroy,
+  PLATFORM_ID,
   inject,
 } from '@angular/core';
 
@@ -13,6 +15,7 @@ import {
 })
 export class FadeInOnScrollDirective implements AfterViewInit, OnDestroy {
   private readonly el = inject(ElementRef<HTMLElement>);
+  private readonly platformId = inject(PLATFORM_ID);
   private observer: IntersectionObserver | null = null;
 
   /** Optional delay in ms before the transition starts (MedNexus FadeInOnScroll delay) */
@@ -24,6 +27,12 @@ export class FadeInOnScrollDirective implements AfterViewInit, OnDestroy {
 
     if (this.fadeDelay > 0) {
       node.style.transitionDelay = `${this.fadeDelay}ms`;
+    }
+
+    // SSR has no window/IntersectionObserver — show content immediately on the server
+    if (!isPlatformBrowser(this.platformId)) {
+      node.classList.add('is-visible');
+      return;
     }
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
