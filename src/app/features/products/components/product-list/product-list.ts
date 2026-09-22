@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ProductFeatureService } from '../../services/product.service';
@@ -40,6 +40,7 @@ export class ProductList implements OnInit {
 
   selectedCategory = ALL_CATEGORY;
   sortBy = 'default';
+  searchTerm = '';
   loading = true;
   errorMessage = '';
   addingProductId: number | null = null;
@@ -73,6 +74,15 @@ export class ProductList implements OnInit {
     this.applyFilters();
   }
 
+  onSearchChange(): void {
+    this.applyFilters();
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    this.applyFilters();
+  }
+
   openProduct(productId: number): void {
     void this.router.navigate(['/products', productId]);
   }
@@ -96,8 +106,15 @@ export class ProductList implements OnInit {
   }
 
   private applyFilters(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+
     let list = this.allProducts.filter(
-      (p) => this.selectedCategory === ALL_CATEGORY || p.category === this.selectedCategory,
+      (p) =>
+        (this.selectedCategory === ALL_CATEGORY || p.category === this.selectedCategory) &&
+        (!term ||
+          p.name.toLowerCase().includes(term) ||
+          p.subtitle.toLowerCase().includes(term) ||
+          p.strength.toLowerCase().includes(term)),
     );
 
     list = [...list];
