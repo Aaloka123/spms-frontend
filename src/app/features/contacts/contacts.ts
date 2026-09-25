@@ -17,10 +17,15 @@ export class Contacts {
   };
 
   messageSent = false;
+  isSubmitting = false;
 
   onSubmit(): void {
-    if (this.formData.name && this.formData.email && this.formData.message) {
-      this.messageSent = true;
+    if (this.formData.name && this.formData.email && this.formData.message && !this.isSubmitting) {
+      this.isSubmitting = true;
+      setTimeout(() => {
+        this.isSubmitting = false;
+        this.messageSent = true;
+      }, 350);
     }
   }
 
