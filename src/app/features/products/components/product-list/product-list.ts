@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductFeatureService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -32,6 +32,7 @@ export class ProductList implements OnInit {
   private readonly productService = inject(ProductFeatureService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   private allProducts: CatalogProduct[] = [];
 
@@ -63,6 +64,16 @@ export class ProductList implements OnInit {
         this.errorMessage = 'Could not load products. Is the backend running?';
       },
     });
+
+    this.route.queryParams.subscribe((params) => {
+      if (params['search'] !== undefined) {
+        this.searchTerm = params['search'];
+      }
+      if (params['category']) {
+        this.selectedCategory = params['category'];
+      }
+      this.applyFilters();
+    });
   }
 
   onCategoryChange(category: string): void {
@@ -81,6 +92,23 @@ export class ProductList implements OnInit {
   clearSearch(): void {
     this.searchTerm = '';
     this.applyFilters();
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { search: null },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm = '';
+    this.selectedCategory = ALL_CATEGORY;
+    this.sortBy = 'default';
+    this.applyFilters();
+    void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
+  }
+
+  get isFiltered(): boolean {
+    return this.searchTerm.trim() !== '' || this.selectedCategory !== ALL_CATEGORY || this.sortBy !== 'default';
   }
 
   openProduct(productId: number): void {
