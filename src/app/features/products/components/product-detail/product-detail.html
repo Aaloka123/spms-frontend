@@ -116,6 +116,9 @@
               <dt class="text-xs uppercase tracking-wide text-slate-400">Stock</dt>
               <dd class="mt-1 text-lg font-semibold text-slate-800">{{ product.stockQuantity }}</dd>
               <p class="mt-1 text-xs text-slate-500">{{ stockLabel(product.stockQuantity) }}</p>
+              @if (product.reorderLevel) {
+                <p class="mt-0.5 text-[11px] text-slate-400">Reorder at: {{ product.reorderLevel }} units</p>
+              }
             </div>
             <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
               <dt class="text-xs uppercase tracking-wide text-slate-400">Expiry</dt>
@@ -132,6 +135,15 @@
               </p>
             </div>
           </dl>
+
+          @if (isReorderUrgent(product)) {
+            <div class="mt-4 flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-2 text-xs font-medium text-amber-800">
+              <svg class="h-4 w-4 shrink-0 text-amber-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+              </svg>
+              <span>Inventory note: Stock is at or below reorder threshold ({{ product.reorderLevel }} units).</span>
+            </div>
+          }
 
           <!-- Quick Actions: Share & Print Leaflet -->
           <div class="mt-6 flex flex-wrap items-center gap-3">

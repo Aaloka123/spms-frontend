@@ -62,6 +62,11 @@ export class ProductDetail implements OnInit {
     return 'bg-emerald-100 text-emerald-700';
   }
 
+  isReorderUrgent(product: Product | null): boolean {
+    if (!product || product.reorderLevel === undefined || product.reorderLevel === null) return false;
+    return product.stockQuantity <= product.reorderLevel;
+  }
+
   isExpired(expiryDate?: string): boolean {
     if (!expiryDate) return false;
     const date = new Date(expiryDate);
