@@ -1,8 +1,12 @@
-﻿import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading-spinner',
   templateUrl: './loading-spinner.html',
   styleUrl: './loading-spinner.css',
 })
-export class LoadingSpinner {}
+export class LoadingSpinner {
+  @Input() message = 'Loading...';
+  @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  @Input() fullScreen = false;
+}

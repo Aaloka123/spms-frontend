@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductFeatureService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { AuthService } from '../../../../core/services/auth.service';
+import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
 
 const ALL_CATEGORY = 'All Medications';
 
@@ -24,7 +25,7 @@ type CatalogProduct = {
 
 @Component({
   selector: 'app-product-list',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, LoadingSpinner],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })

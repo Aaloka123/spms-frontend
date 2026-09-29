@@ -126,7 +126,9 @@
 
       <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 xl:grid-cols-3">
         @if (loading) {
-          <p class="col-span-full text-sm text-slate-500">Loading products...</p>
+          <div class="col-span-full py-12">
+            <app-loading-spinner message="Loading pharmacy medications..."></app-loading-spinner>
+          </div>
         }
 
         @if (errorMessage) {

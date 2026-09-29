@@ -1,1 +1,39 @@
-﻿
+<div
+  role="status"
+  aria-live="polite"
+  class="flex flex-col items-center justify-center gap-3 p-6 text-center"
+  [class.fixed]="fullScreen"
+  [class.inset-0]="fullScreen"
+  [class.z-50]="fullScreen"
+  [class.bg-white/80]="fullScreen"
+  [class.backdrop-blur-sm]="fullScreen"
+>
+  <div class="relative flex items-center justify-center">
+    <div
+      class="animate-spin rounded-full border-teal-600 border-t-transparent"
+      [class.h-6]="size === 'sm'"
+      [class.w-6]="size === 'sm'"
+      [class.border-2]="size === 'sm'"
+      [class.h-10]="size === 'md'"
+      [class.w-10]="size === 'md'"
+      [class.border-4]="size === 'md'"
+      [class.h-16]="size === 'lg'"
+      [class.w-16]="size === 'lg'"
+      [class.border-4]="size === 'lg'"
+    ></div>
+    <div
+      class="absolute rounded-full bg-teal-50"
+      [class.h-2]="size === 'sm'"
+      [class.w-2]="size === 'sm'"
+      [class.h-3]="size === 'md'"
+      [class.w-3]="size === 'md'"
+      [class.h-5]="size === 'lg'"
+      [class.w-5]="size === 'lg'"
+    ></div>
+  </div>
+
+  @if (message) {
+    <p class="text-xs font-medium text-slate-500">{{ message }}</p>
+  }
+  <span class="sr-only">Loading</span>
+</div>
