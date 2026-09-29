@@ -76,10 +76,16 @@
           id="desktop-search-input"
           name="desktopSearch"
           [(ngModel)]="searchQuery"
-          class="w-44 rounded-full border border-slate-200 bg-white py-2.5 pl-9 pr-4 text-[14px] text-slate-700 shadow-sm outline-none transition duration-200 hover:border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 lg:w-56"
+          class="w-44 rounded-full border border-slate-200 bg-white py-2.5 pl-9 pr-8 text-[14px] text-slate-700 shadow-sm outline-none transition duration-200 hover:border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 lg:w-56"
           placeholder="Search medicines..."
           type="search"
         />
+        <kbd
+          class="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 lg:inline-block"
+          title="Press / to search"
+        >
+          /
+        </kbd>
       </form>
 
       @if (isLoggedIn) {
@@ -247,6 +253,13 @@
             Login
           </a>
         }
+
+        <div class="mt-5 rounded-2xl border border-teal-100 bg-teal-50/80 p-3.5 text-xs text-slate-700">
+          <p class="font-semibold text-teal-800">Urgent Pharmacist Desk</p>
+          <a href="tel:+977014589201" class="mt-1 block font-bold text-teal-700 hover:underline">
+            +977 (01) 458-9201
+          </a>
+        </div>
       </div>
     </div>
   }
