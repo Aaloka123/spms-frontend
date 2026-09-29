@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductFeatureService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
@@ -104,5 +104,39 @@ export class ProductDetail implements OnInit {
     if (key.includes('metformin')) return '/assets/Metformin.webp';
 
     return '/assets/Paracetamol.jpg';
+  }
+
+  linkCopied = false;
+
+  printLeaflet(): void {
+    if (typeof window !== 'undefined') {
+      window.print();
+    }
+  }
+
+  shareProduct(): void {
+    if (typeof window !== 'undefined') {
+      const url = window.location.href;
+      if (navigator.share) {
+        navigator.share({
+          title: this.product ? `${this.product.productName} - MedNexus` : 'MedNexus Medicine',
+          url,
+        }).catch(() => {
+          this.copyProductLink(url);
+        });
+      } else {
+        this.copyProductLink(url);
+      }
+    }
+  }
+
+  private copyProductLink(url: string): void {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      void navigator.clipboard.writeText(url);
+      this.linkCopied = true;
+      setTimeout(() => {
+        this.linkCopied = false;
+      }, 2000);
+    }
   }
 }
