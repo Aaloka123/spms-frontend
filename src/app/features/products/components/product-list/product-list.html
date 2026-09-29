@@ -22,7 +22,7 @@
         @for (category of categories; track category) {
           <button
             type="button"
-            class="cursor-pointer rounded-full px-4 py-2 text-sm font-medium"
+            class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition"
             [class.border]="selectedCategory === category"
             [class.border-teal-600]="selectedCategory === category"
             [class.bg-teal-50]="selectedCategory === category"
@@ -31,7 +31,16 @@
             [class.text-slate-700]="selectedCategory !== category"
             (click)="onCategoryChange(category)"
           >
-            {{ category }}
+            <span>{{ category }}</span>
+            <span
+              class="rounded-full px-1.5 py-0.5 text-[11px] font-semibold"
+              [class.bg-teal-200]="selectedCategory === category"
+              [class.text-teal-900]="selectedCategory === category"
+              [class.bg-slate-200]="selectedCategory !== category"
+              [class.text-slate-600]="selectedCategory !== category"
+            >
+              {{ getCategoryCount(category) }}
+            </span>
           </button>
         }
       </div>
@@ -101,7 +110,7 @@
           </div>
 
           <div class="flex items-center justify-between border-t border-slate-200 pt-2 text-xs font-medium text-slate-500">
-            <span>Showing {{ filteredProducts.length }} product(s)</span>
+            <span>Showing {{ filteredProducts.length }} of {{ totalProductCount }} product(s)</span>
             @if (isFiltered) {
               <button
                 type="button"

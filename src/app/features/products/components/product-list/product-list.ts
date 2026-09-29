@@ -111,6 +111,17 @@ export class ProductList implements OnInit {
     return this.searchTerm.trim() !== '' || this.selectedCategory !== ALL_CATEGORY || this.sortBy !== 'default';
   }
 
+  get totalProductCount(): number {
+    return this.allProducts.length;
+  }
+
+  getCategoryCount(category: string): number {
+    if (category === ALL_CATEGORY) {
+      return this.allProducts.length;
+    }
+    return this.allProducts.filter((p) => p.category === category).length;
+  }
+
   openProduct(productId: number): void {
     void this.router.navigate(['/products', productId]);
   }
