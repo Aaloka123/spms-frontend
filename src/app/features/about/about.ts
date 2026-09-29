@@ -34,4 +34,27 @@ export class About {
         'Direct reporting protocols for adverse reactions, drug interactions, and clinical recalls with registered health departments.',
     },
   ];
+
+  milestones = [
+    {
+      year: '2022',
+      title: 'Foundation & Clinical Licensing',
+      description: 'Established central dispensing operations with full department of drug administration accreditation.',
+    },
+    {
+      year: '2023',
+      title: 'Cold-Chain Infrastructure',
+      description: 'Implemented IoT temperature-monitored refrigerated transport for sensitive biologics and vaccines.',
+    },
+    {
+      year: '2024',
+      title: 'Digital Prescription Gateway',
+      description: 'Connected 45+ partner clinics with instant prescription verification and batch trace logs.',
+    },
+    {
+      year: '2025',
+      title: 'Real-time Stock Automation',
+      description: 'Launched integrated pharmacy management system for zero stock-out critical medications.',
+    },
+  ];
 }
