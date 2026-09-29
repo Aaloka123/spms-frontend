@@ -18,6 +18,19 @@ export class Contacts {
 
   messageSent = false;
   isSubmitting = false;
+  copiedField: string | null = null;
+
+  copyToClipboard(text: string, field: string): void {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      void navigator.clipboard.writeText(text);
+      this.copiedField = field;
+      setTimeout(() => {
+        if (this.copiedField === field) {
+          this.copiedField = null;
+        }
+      }, 2000);
+    }
+  }
 
   onSubmit(): void {
     if (this.formData.name && this.formData.email && this.formData.message && !this.isSubmitting) {
