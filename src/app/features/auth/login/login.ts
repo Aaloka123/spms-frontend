@@ -1,4 +1,4 @@
-﻿import { Component, ElementRef, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../services/login.service';
@@ -50,6 +50,17 @@ export class Login implements OnInit {
 
   togglePassword(): void {
     this.showPassword = !this.showPassword;
+  }
+
+  fillDemoAccount(type: 'admin' | 'staff'): void {
+    if (type === 'admin') {
+      this.username = 'admin';
+      this.password = 'Admin@123';
+    } else {
+      this.username = 'pharmacist';
+      this.password = 'Pharmacy@123';
+    }
+    this.errorMessage = '';
   }
 
   /** Go back from OTP screen to password screen */
