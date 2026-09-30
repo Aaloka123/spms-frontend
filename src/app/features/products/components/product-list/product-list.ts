@@ -47,9 +47,14 @@ export class ProductList implements OnInit {
   errorMessage = '';
   addingProductId: number | null = null;
   viewMode: 'grid' | 'list' = 'grid';
+  onlyInStock = false;
 
   setViewMode(mode: 'grid' | 'list'): void {
     this.viewMode = mode;
+  }
+
+  onStockFilterChange(): void {
+    this.applyFilters();
   }
 
   ngOnInit(): void {
@@ -109,12 +114,18 @@ export class ProductList implements OnInit {
     this.searchTerm = '';
     this.selectedCategory = ALL_CATEGORY;
     this.sortBy = 'default';
+    this.onlyInStock = false;
     this.applyFilters();
     void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
   }
 
   get isFiltered(): boolean {
-    return this.searchTerm.trim() !== '' || this.selectedCategory !== ALL_CATEGORY || this.sortBy !== 'default';
+    return (
+      this.searchTerm.trim() !== '' ||
+      this.selectedCategory !== ALL_CATEGORY ||
+      this.sortBy !== 'default' ||
+      this.onlyInStock
+    );
   }
 
   get totalProductCount(): number {
@@ -156,6 +167,7 @@ export class ProductList implements OnInit {
     let list = this.allProducts.filter(
       (p) =>
         (this.selectedCategory === ALL_CATEGORY || p.category === this.selectedCategory) &&
+        (!this.onlyInStock || p.stock > 0) &&
         (!term ||
           p.name.toLowerCase().includes(term) ||
           p.subtitle.toLowerCase().includes(term) ||
