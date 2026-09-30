@@ -38,6 +38,14 @@ export class Header {
     });
   }
 
+  clearSearch(): void {
+    this.searchQuery = '';
+  }
+
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
