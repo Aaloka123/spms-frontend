@@ -20,6 +20,11 @@ export class Contacts {
   isSubmitting = false;
   copiedField: string | null = null;
 
+  get isOpenNow(): boolean {
+    const hour = new Date().getHours();
+    return hour >= 8 && hour < 22;
+  }
+
   copyToClipboard(text: string, field: string): void {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       void navigator.clipboard.writeText(text);
