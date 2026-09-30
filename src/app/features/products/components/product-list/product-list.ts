@@ -46,6 +46,11 @@ export class ProductList implements OnInit {
   loading = true;
   errorMessage = '';
   addingProductId: number | null = null;
+  viewMode: 'grid' | 'list' = 'grid';
+
+  setViewMode(mode: 'grid' | 'list'): void {
+    this.viewMode = mode;
+  }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe({
