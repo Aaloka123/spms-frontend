@@ -21,6 +21,10 @@ export class Footer {
     return this.authService.isLoggedIn();
   }
 
+  get isDispensaryActive(): boolean {
+    return true;
+  }
+
   onSubscribeNewsletter(): void {
     if (this.newsletterEmail.trim() && this.newsletterEmail.includes('@')) {
       this.newsletterSubscribed = true;
