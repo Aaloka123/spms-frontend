@@ -57,4 +57,11 @@ export class About {
       description: 'Launched integrated pharmacy management system for zero stock-out critical medications.',
     },
   ];
+
+  accreditations = [
+    { code: 'DDA-MED-84920', agency: 'Department of Drug Administration', role: 'Registered Dispensary License' },
+    { code: 'GPP-INTL-2024', agency: 'WHO & FIP Guidelines', role: 'Good Pharmacy Practice Standards' },
+    { code: 'NPC-CLIN-4019', agency: 'Nepal Pharmacy Council', role: 'Licensed Supervisory Pharmacists' },
+    { code: 'ISO-9001-HEALTH', agency: 'Quality Management Systems', role: 'Certified Cold-Chain Protocol' },
+  ];
 }
