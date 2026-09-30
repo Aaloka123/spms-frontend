@@ -28,6 +28,7 @@ export class Footer {
   onSubscribeNewsletter(): void {
     if (this.newsletterEmail.trim() && this.newsletterEmail.includes('@')) {
       this.newsletterSubscribed = true;
+      this.newsletterEmail = '';
     }
   }
 

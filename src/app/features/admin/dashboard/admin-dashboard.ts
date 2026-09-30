@@ -19,9 +19,16 @@ export class AdminDashboard implements OnInit {
   expiringCount = 0;
   loading = true;
   errorMessage = '';
+  lastRefreshedAt = '';
 
   ngOnInit(): void {
     this.username = this.authService.getUsername() ?? 'Admin';
+    this.loadDashboardData();
+  }
+
+  loadDashboardData(): void {
+    this.loading = true;
+    this.errorMessage = '';
 
     // Use admin endpoint so count includes inactive products
     this.productService.getAllProductsForAdmin().subscribe({
@@ -30,6 +37,11 @@ export class AdminDashboard implements OnInit {
         this.lowStockCount = products.filter((p) => p.stockQuantity <= (p.reorderLevel ?? 10)).length;
         this.expiringCount = products.filter((p) => this.isNearExpiry(p.expiryDate)).length;
         this.loading = false;
+        this.lastRefreshedAt = new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
       },
       error: () => {
         this.loading = false;
