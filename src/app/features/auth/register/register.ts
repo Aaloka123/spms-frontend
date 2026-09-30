@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -40,6 +40,28 @@ export class Register implements OnInit {
 
   toggleConfirmPassword(): void {
     this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  get passwordStrength(): { score: number; label: string; tone: string } {
+    const pwd = this.password;
+    if (!pwd) return { score: 0, label: '', tone: 'bg-slate-200' };
+
+    let score = 0;
+    if (pwd.length >= 8) score++;
+    if (/[A-Z]/.test(pwd)) score++;
+    if (/[0-9]/.test(pwd)) score++;
+    if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+    if (score <= 1) {
+      return { score: 1, label: 'Weak', tone: 'bg-rose-500' };
+    }
+    if (score === 2) {
+      return { score: 2, label: 'Fair', tone: 'bg-amber-500' };
+    }
+    if (score === 3) {
+      return { score: 3, label: 'Good', tone: 'bg-teal-500' };
+    }
+    return { score: 4, label: 'Strong', tone: 'bg-emerald-600' };
   }
 
   /** Digits only, max 10 */
