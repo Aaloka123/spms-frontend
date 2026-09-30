@@ -135,6 +135,17 @@ export class ProductDetail implements OnInit {
     }
   }
 
+  getStorageGuidance(dosageForm?: string): { temp: string; condition: string } {
+    const form = (dosageForm ?? '').toLowerCase();
+    if (form.includes('inject') || form.includes('vaccin') || form.includes('insulin')) {
+      return { temp: '2°C – 8°C (Cold Chain)', condition: 'Refrigerate. Do not freeze. Protect from direct light.' };
+    }
+    if (form.includes('syrup') || form.includes('suspension')) {
+      return { temp: '15°C – 25°C (Controlled Room)', condition: 'Keep bottle tightly closed. Shake well before use.' };
+    }
+    return { temp: 'Below 25°C (Cool & Dry)', condition: 'Store in original packaging away from excess heat and direct moisture.' };
+  }
+
   private copyProductLink(url: string): void {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       void navigator.clipboard.writeText(url);
