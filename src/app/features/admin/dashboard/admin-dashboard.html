@@ -253,7 +253,7 @@
 
     <!-- Real-time Network Status Footer -->
     <div class="flex flex-col items-center justify-between gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-5 py-3 text-xs text-slate-500 shadow-xs sm:flex-row">
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <span class="relative flex h-2 w-2">
           <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -261,6 +261,10 @@
         <span class="font-semibold text-slate-700">MedNexus Network:</span>
         <span class="font-medium text-emerald-700">All Systems Operational</span>
         <span class="hidden rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 sm:inline-block">99.9% Uptime</span>
+        <span class="hidden items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600 md:inline-flex">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          16ms
+        </span>
       </div>
       <div class="flex items-center gap-2 text-slate-400">
         <span>Inventory Telemetry Engine</span>
