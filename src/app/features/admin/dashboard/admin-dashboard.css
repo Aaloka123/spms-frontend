@@ -1,1 +1,15 @@
-/* Dashboard styles use Tailwind utilities in the template. */
+/* Dashboard styles and animation polish */
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+.dashboard-hero-glow {
+  background-radial: radial-gradient(circle at top right, rgba(20, 184, 166, 0.15), transparent 70%);
+}
