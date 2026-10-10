@@ -7,15 +7,21 @@
 
     <div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
       <div class="space-y-2">
-        <div class="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/15 px-3 py-1 text-xs font-semibold text-teal-300 backdrop-blur-md">
-          <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/15 px-3 py-1 text-xs font-semibold text-teal-300 backdrop-blur-md">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            </span>
+            <span>Live Telemetry Active</span>
+            @if (lastRefreshedAt) {
+              <span class="text-teal-200/60">&bull; Updated {{ lastRefreshedAt }}</span>
+            }
+          </div>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300 backdrop-blur-md">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            Node: Healthy
           </span>
-          <span>Live Telemetry Active</span>
-          @if (lastRefreshedAt) {
-            <span class="text-teal-200/60">&bull; Updated {{ lastRefreshedAt }}</span>
-          }
         </div>
 
         <h1 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl">
