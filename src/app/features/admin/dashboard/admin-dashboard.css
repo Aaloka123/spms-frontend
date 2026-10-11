@@ -10,6 +10,10 @@
   }
 }
 
+.animate-subtle-pulse {
+  animation: subtle-pulse 3s ease-in-out infinite;
+}
+
 .dashboard-hero-glow {
-  background-radial: radial-gradient(circle at top right, rgba(20, 184, 166, 0.15), transparent 70%);
+  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.15), transparent 70%);
 }
