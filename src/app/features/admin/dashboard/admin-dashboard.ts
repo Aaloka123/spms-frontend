@@ -26,11 +26,14 @@ export class AdminDashboard implements OnInit {
     this.loadDashboardData();
   }
 
+  /**
+   * Fetches real-time inventory metrics and telemetry for the admin command center.
+   */
   loadDashboardData(): void {
     this.loading = true;
     this.errorMessage = '';
 
-    // Use admin endpoint so count includes inactive products
+    // Use admin endpoint so telemetry metrics include both active and inactive products
     this.productService.getAllProductsForAdmin().subscribe({
       next: (products) => {
         this.productCount = products.length;
