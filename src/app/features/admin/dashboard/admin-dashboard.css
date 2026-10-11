@@ -17,3 +17,8 @@
 .dashboard-hero-glow {
   background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.15), transparent 70%);
 }
+
+.glass-panel {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
