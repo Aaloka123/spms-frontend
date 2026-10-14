@@ -1,4 +1,4 @@
-/* Dashboard styles and animation polish */
+/* Dashboard styles & atmospheric animations */
 @keyframes subtle-pulse {
   0%, 100% {
     opacity: 1;
@@ -42,7 +42,7 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* Command Center Hero Button & Badge Micro-Interactions */
+/* Command Center Hero Controls & Live Badge */
 .hero-telemetry-badge {
   box-shadow: 0 0 20px -3px rgba(20, 184, 166, 0.35);
   border-color: rgba(45, 212, 191, 0.35);
@@ -52,15 +52,13 @@
 
 .hero-btn-primary {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.25s ease;
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 8px 20px -4px rgba(20, 184, 166, 0.45);
 }
 
 .hero-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -4px rgba(20, 184, 166, 0.65),
-              0 0 0 1px rgba(94, 234, 212, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(20, 184, 166, 0.65), 0 0 0 1px rgba(94, 234, 212, 0.4);
 }
 
 .hero-btn-glass {
@@ -75,76 +73,11 @@
 .hero-btn-glass:hover:not(:disabled) {
   transform: translateY(-2px);
   border-color: rgba(94, 234, 212, 0.45);
-  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35),
-              0 0 0 1px rgba(94, 234, 212, 0.2);
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(94, 234, 212, 0.2);
 }
 
-
-/* Interactive Telemetry Cards Elevation & Ambient Glows */
-.telemetry-card {
-  position: relative;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease;
-  will-change: transform, box-shadow;
-}
-
-.telemetry-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.telemetry-card:hover {
-  transform: translateY(-4px);
-}
-
-.telemetry-card:hover::before {
-  opacity: 1;
-}
-
-/* Color-specific glow accents on hover */
-.card-glow-teal:hover {
-  border-color: rgba(20, 184, 166, 0.5) !important;
-  box-shadow: 0 20px 30px -10px rgba(13, 148, 136, 0.18),
-              0 0 0 1px rgba(20, 184, 166, 0.25);
-}
-.card-glow-teal::before {
-  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 65%);
-}
-
-.card-glow-amber:hover {
-  border-color: rgba(245, 158, 11, 0.55) !important;
-  box-shadow: 0 20px 30px -10px rgba(217, 119, 6, 0.2),
-              0 0 0 1px rgba(245, 158, 11, 0.25);
-}
-.card-glow-amber::before {
-  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.14), transparent 65%);
-}
-
-.card-glow-rose:hover {
-  border-color: rgba(244, 63, 94, 0.55) !important;
-  box-shadow: 0 20px 30px -10px rgba(225, 29, 72, 0.2),
-              0 0 0 1px rgba(244, 63, 94, 0.25);
-}
-.card-glow-rose::before {
-  background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.14), transparent 65%);
-}
-
-.card-glow-emerald:hover {
-  border-color: rgba(16, 185, 129, 0.5) !important;
-  box-shadow: 0 20px 30px -10px rgba(5, 150, 105, 0.18),
-              0 0 0 1px rgba(16, 185, 129, 0.25);
-}
-.card-glow-emerald::before {
-  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 65%);
-}
-
-/* Interactive Administrative Operations Cards & Glows */
+/* Shared Card Micro-Interactions & Elevation */
+.telemetry-card,
 .action-card {
   position: relative;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -153,6 +86,7 @@
   will-change: transform, box-shadow;
 }
 
+.telemetry-card::before,
 .action-card::before {
   content: '';
   position: absolute;
@@ -163,18 +97,53 @@
   transition: opacity 0.35s ease;
 }
 
+.telemetry-card:hover,
 .action-card:hover {
   transform: translateY(-4px);
 }
 
+.telemetry-card:hover::before,
 .action-card:hover::before {
   opacity: 1;
 }
 
+/* Telemetry Card Halos */
+.card-glow-teal:hover {
+  border-color: rgba(20, 184, 166, 0.5) !important;
+  box-shadow: 0 20px 30px -10px rgba(13, 148, 136, 0.18), 0 0 0 1px rgba(20, 184, 166, 0.25);
+}
+.card-glow-teal::before {
+  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 65%);
+}
+
+.card-glow-amber:hover {
+  border-color: rgba(245, 158, 11, 0.55) !important;
+  box-shadow: 0 20px 30px -10px rgba(217, 119, 6, 0.2), 0 0 0 1px rgba(245, 158, 11, 0.25);
+}
+.card-glow-amber::before {
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.14), transparent 65%);
+}
+
+.card-glow-rose:hover {
+  border-color: rgba(244, 63, 94, 0.55) !important;
+  box-shadow: 0 20px 30px -10px rgba(225, 29, 72, 0.2), 0 0 0 1px rgba(244, 63, 94, 0.25);
+}
+.card-glow-rose::before {
+  background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.14), transparent 65%);
+}
+
+.card-glow-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 20px 30px -10px rgba(5, 150, 105, 0.18), 0 0 0 1px rgba(16, 185, 129, 0.25);
+}
+.card-glow-emerald::before {
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 65%);
+}
+
+/* Operation Module Halos */
 .action-glow-teal:hover {
   border-color: rgba(20, 184, 166, 0.5) !important;
-  box-shadow: 0 16px 28px -8px rgba(13, 148, 136, 0.16),
-              0 0 0 1px rgba(20, 184, 166, 0.2);
+  box-shadow: 0 16px 28px -8px rgba(13, 148, 136, 0.16), 0 0 0 1px rgba(20, 184, 166, 0.2);
 }
 .action-glow-teal::before {
   background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 60%);
@@ -182,8 +151,7 @@
 
 .action-glow-indigo:hover {
   border-color: rgba(99, 102, 241, 0.5) !important;
-  box-shadow: 0 16px 28px -8px rgba(79, 70, 229, 0.16),
-              0 0 0 1px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 16px 28px -8px rgba(79, 70, 229, 0.16), 0 0 0 1px rgba(99, 102, 241, 0.2);
 }
 .action-glow-indigo::before {
   background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.12), transparent 60%);
@@ -191,8 +159,7 @@
 
 .action-glow-sky:hover {
   border-color: rgba(14, 165, 233, 0.5) !important;
-  box-shadow: 0 16px 28px -8px rgba(2, 132, 199, 0.16),
-              0 0 0 1px rgba(14, 165, 233, 0.2);
+  box-shadow: 0 16px 28px -8px rgba(2, 132, 199, 0.16), 0 0 0 1px rgba(14, 165, 233, 0.2);
 }
 .action-glow-sky::before {
   background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 60%);
@@ -200,11 +167,8 @@
 
 .action-glow-purple:hover {
   border-color: rgba(168, 85, 247, 0.5) !important;
-  box-shadow: 0 16px 28px -8px rgba(147, 51, 234, 0.16),
-              0 0 0 1px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 16px 28px -8px rgba(147, 51, 234, 0.16), 0 0 0 1px rgba(168, 85, 247, 0.2);
 }
 .action-glow-purple::before {
   background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.12), transparent 60%);
 }
-
-
