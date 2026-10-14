@@ -22,3 +22,68 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* Interactive Telemetry Cards Elevation & Ambient Glows */
+.telemetry-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.telemetry-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.telemetry-card:hover {
+  transform: translateY(-4px);
+}
+
+.telemetry-card:hover::before {
+  opacity: 1;
+}
+
+/* Color-specific glow accents on hover */
+.card-glow-teal:hover {
+  border-color: rgba(20, 184, 166, 0.5) !important;
+  box-shadow: 0 20px 30px -10px rgba(13, 148, 136, 0.18),
+              0 0 0 1px rgba(20, 184, 166, 0.25);
+}
+.card-glow-teal::before {
+  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 65%);
+}
+
+.card-glow-amber:hover {
+  border-color: rgba(245, 158, 11, 0.55) !important;
+  box-shadow: 0 20px 30px -10px rgba(217, 119, 6, 0.2),
+              0 0 0 1px rgba(245, 158, 11, 0.25);
+}
+.card-glow-amber::before {
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.14), transparent 65%);
+}
+
+.card-glow-rose:hover {
+  border-color: rgba(244, 63, 94, 0.55) !important;
+  box-shadow: 0 20px 30px -10px rgba(225, 29, 72, 0.2),
+              0 0 0 1px rgba(244, 63, 94, 0.25);
+}
+.card-glow-rose::before {
+  background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.14), transparent 65%);
+}
+
+.card-glow-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 20px 30px -10px rgba(5, 150, 105, 0.18),
+              0 0 0 1px rgba(16, 185, 129, 0.25);
+}
+.card-glow-emerald::before {
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 65%);
+}
+
