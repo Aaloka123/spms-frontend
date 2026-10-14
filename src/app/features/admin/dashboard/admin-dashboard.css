@@ -14,6 +14,25 @@
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 
+@keyframes ambient-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(14px, -10px) scale(1.08);
+    opacity: 0.25;
+  }
+}
+
+.animate-ambient-drift-1 {
+  animation: ambient-drift 8s ease-in-out infinite;
+}
+
+.animate-ambient-drift-2 {
+  animation: ambient-drift 10s ease-in-out infinite reverse;
+}
+
 .dashboard-hero-glow {
   background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.15), transparent 70%);
 }
@@ -22,6 +41,44 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* Command Center Hero Button & Badge Micro-Interactions */
+.hero-telemetry-badge {
+  box-shadow: 0 0 20px -3px rgba(20, 184, 166, 0.35);
+  border-color: rgba(45, 212, 191, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hero-btn-primary {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.25s ease;
+  box-shadow: 0 8px 20px -4px rgba(20, 184, 166, 0.45);
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(20, 184, 166, 0.65),
+              0 0 0 1px rgba(94, 234, 212, 0.4);
+}
+
+.hero-btn-glass {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hero-btn-glass:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(94, 234, 212, 0.45);
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35),
+              0 0 0 1px rgba(94, 234, 212, 0.2);
+}
+
 
 /* Interactive Telemetry Cards Elevation & Ambient Glows */
 .telemetry-card {
