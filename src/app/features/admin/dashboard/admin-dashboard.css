@@ -107,46 +107,39 @@
   opacity: 1;
 }
 
-/* Telemetry Card Halos */
-.card-glow-teal:hover {
+/* Color Halos on Hover */
+.card-glow-teal:hover,
+.action-glow-teal:hover {
   border-color: rgba(20, 184, 166, 0.5) !important;
-  box-shadow: 0 20px 30px -10px rgba(13, 148, 136, 0.18), 0 0 0 1px rgba(20, 184, 166, 0.25);
+  box-shadow: 0 18px 30px -8px rgba(13, 148, 136, 0.18), 0 0 0 1px rgba(20, 184, 166, 0.22);
 }
-.card-glow-teal::before {
-  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 65%);
+.card-glow-teal::before,
+.action-glow-teal::before {
+  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.13), transparent 62%);
 }
 
 .card-glow-amber:hover {
   border-color: rgba(245, 158, 11, 0.55) !important;
-  box-shadow: 0 20px 30px -10px rgba(217, 119, 6, 0.2), 0 0 0 1px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 18px 30px -8px rgba(217, 119, 6, 0.2), 0 0 0 1px rgba(245, 158, 11, 0.22);
 }
 .card-glow-amber::before {
-  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.14), transparent 65%);
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.13), transparent 62%);
 }
 
 .card-glow-rose:hover {
   border-color: rgba(244, 63, 94, 0.55) !important;
-  box-shadow: 0 20px 30px -10px rgba(225, 29, 72, 0.2), 0 0 0 1px rgba(244, 63, 94, 0.25);
+  box-shadow: 0 18px 30px -8px rgba(225, 29, 72, 0.2), 0 0 0 1px rgba(244, 63, 94, 0.22);
 }
 .card-glow-rose::before {
-  background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.14), transparent 65%);
+  background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.13), transparent 62%);
 }
 
 .card-glow-emerald:hover {
   border-color: rgba(16, 185, 129, 0.5) !important;
-  box-shadow: 0 20px 30px -10px rgba(5, 150, 105, 0.18), 0 0 0 1px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 18px 30px -8px rgba(5, 150, 105, 0.18), 0 0 0 1px rgba(16, 185, 129, 0.22);
 }
 .card-glow-emerald::before {
-  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 65%);
-}
-
-/* Operation Module Halos */
-.action-glow-teal:hover {
-  border-color: rgba(20, 184, 166, 0.5) !important;
-  box-shadow: 0 16px 28px -8px rgba(13, 148, 136, 0.16), 0 0 0 1px rgba(20, 184, 166, 0.2);
-}
-.action-glow-teal::before {
-  background: radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 60%);
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.13), transparent 62%);
 }
 
 .action-glow-indigo:hover {
