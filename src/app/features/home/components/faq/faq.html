@@ -25,6 +25,7 @@
             <button
               type="button"
               (click)="setCategory(cat)"
+              [attr.aria-pressed]="activeCategory === cat"
               class="cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-semibold transition"
               [class.bg-white]="activeCategory === cat"
               [class.text-teal-900]="activeCategory === cat"
