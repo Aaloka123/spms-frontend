@@ -39,6 +39,7 @@
                   (click)="copyToClipboard('+977014589201', 'phone')"
                   class="inline-flex cursor-pointer items-center gap-1 rounded-md bg-slate-200/70 px-1.5 py-0.5 text-[11px] font-medium text-slate-600 transition hover:bg-teal-100 hover:text-teal-800"
                   [title]="copiedField === 'phone' ? 'Copied!' : 'Copy number'"
+                  aria-label="Copy phone number"
                 >
                   @if (copiedField === 'phone') {
                     <span class="text-teal-700">Copied!</span>
