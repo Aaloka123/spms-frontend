@@ -9,6 +9,9 @@
         <img
           src="/assets/Mednexux.png"
           alt="MedNexus logo"
+          loading="lazy"
+          width="160"
+          height="48"
           class="h-12 w-auto object-contain"
         />
         <p class="mt-4 max-w-xs text-[14px] leading-6 text-slate-600">
@@ -34,6 +37,7 @@
                 id="footer-newsletter-email"
                 name="newsletterEmail"
                 type="email"
+                autocomplete="email"
                 required
                 [(ngModel)]="newsletterEmail"
                 placeholder="Enter your email..."

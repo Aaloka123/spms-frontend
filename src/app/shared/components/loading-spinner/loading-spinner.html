@@ -35,5 +35,5 @@
   @if (message) {
     <p class="text-xs font-medium text-slate-500">{{ message }}</p>
   }
-  <span class="sr-only">Loading</span>
+  <span class="sr-only">{{ message || 'Loading...' }}</span>
 </div>

@@ -8,6 +8,9 @@
       <img
         src="/assets/Mednexux.png"
         alt="MedNexus logo"
+        width="160"
+        height="48"
+        fetchpriority="high"
         class="h-10 w-auto object-contain sm:h-12"
       />
       <span class="hidden flex-col leading-tight sm:flex">
@@ -175,6 +178,7 @@
         </div>
         <button
           type="button"
+          aria-label="Close menu"
           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 hover:text-teal-700"
           (click)="closeMenu()"
         >
