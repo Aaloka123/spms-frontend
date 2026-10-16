@@ -20,4 +20,5 @@ export const routes: Routes = [
   { path: 'signup', component: Register, canActivate: [guestGuard], title: 'MedNexus - Register Account' },
   { path: 'register', redirectTo: 'signup', pathMatch: 'full' },
   ...adminRoutes,
+  { path: '**', redirectTo: '' },
 ];

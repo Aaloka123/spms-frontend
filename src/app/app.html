@@ -1,8 +1,15 @@
+<a
+  href="#main-content"
+  class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-xl focus:bg-teal-700 focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
+>
+  Skip to main content
+</a>
+
 @if (!isAdminRoute) {
   <app-header />
 }
 
-<main>
+<main id="main-content" tabindex="-1" class="outline-none">
   <router-outlet />
 </main>
 
