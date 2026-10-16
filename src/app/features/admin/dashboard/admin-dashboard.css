@@ -186,3 +186,19 @@
 .telemetry-pill:hover {
   transform: translateY(-1px);
 }
+
+/* Accessibility: respect user prefers-reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .animate-subtle-pulse,
+  .animate-ambient-drift-1,
+  .animate-ambient-drift-2 {
+    animation: none !important;
+  }
+  .telemetry-card,
+  .action-card,
+  .hero-btn-primary,
+  .hero-btn-glass {
+    transition: none !important;
+    transform: none !important;
+  }
+}
