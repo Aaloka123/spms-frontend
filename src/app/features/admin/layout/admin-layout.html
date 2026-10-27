@@ -1,7 +1,9 @@
-<div class="min-h-screen bg-slate-50 lg:flex">
+<div class="min-h-screen bg-slate-50/70 lg:flex">
   <app-admin-navbar />
 
-  <main class="flex-1 p-4 md:p-6">
-    <router-outlet />
+  <main class="flex-1 overflow-x-hidden p-4 sm:p-6 lg:p-8">
+    <div class="mx-auto max-w-7xl">
+      <router-outlet />
+    </div>
   </main>
 </div>
