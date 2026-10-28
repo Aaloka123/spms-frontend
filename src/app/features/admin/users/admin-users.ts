@@ -80,4 +80,10 @@ export class AdminUsers implements OnInit {
   displayName(user: AdminUser): string {
     return `${user.firstName} ${user.lastName}`.trim();
   }
+
+  getInitials(user: AdminUser): string {
+    const f = user.firstName?.[0] ?? '';
+    const l = user.lastName?.[0] ?? '';
+    return (f + l).toUpperCase() || (user.username?.[0]?.toUpperCase() ?? 'U');
+  }
 }
