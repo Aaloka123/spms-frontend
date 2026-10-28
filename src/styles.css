@@ -26,6 +26,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Design Change 1: Brand Text Selection & Focus-Visible Ring */
+::selection {
+  background-color: #0d9488;
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #0d9488;
+  outline-offset: 2px;
+}
+
 /* Design Change 2: Modern Slim Scrollbars across all views */
 ::-webkit-scrollbar {
   width: 6px;
