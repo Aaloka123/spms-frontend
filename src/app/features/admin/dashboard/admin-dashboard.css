@@ -46,15 +46,39 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* Design Change 2: Hero Button Sheen Sweep & Tactile Active Press */
 .hero-btn-primary {
+  position: relative;
+  overflow: hidden;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 8px 24px -4px rgba(20, 184, 166, 0.5);
 }
 
+.hero-btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+
+.hero-btn-primary:hover::after {
+  left: 150%;
+}
+
 .hero-btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px -4px rgba(20, 184, 166, 0.7), 0 0 0 1px rgba(94, 234, 212, 0.45);
+}
+
+.hero-btn-primary:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .hero-btn-glass {
@@ -72,7 +96,11 @@
   box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(94, 234, 212, 0.2);
 }
 
-/* Telemetry & Action Cards Elevation & Halo Highlights */
+.hero-btn-glass:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Design Change 3: Telemetry & Action Cards Elevation, Inset Light Rim & Halo Highlights */
 .telemetry-card,
 .action-card {
   position: relative;
@@ -80,6 +108,7 @@
               box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.3s ease;
   will-change: transform, box-shadow;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), inset 0 1px 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 .telemetry-card::before,
@@ -105,7 +134,7 @@
 
 /* Card Color Halo Custom Properties */
 [class*='card-glow-']:hover, [class*='action-glow-']:hover {
-  box-shadow: 0 18px 32px -8px var(--glow-shadow, rgba(13, 148, 136, 0.22)), 0 0 0 1px var(--glow-border, rgba(20, 184, 166, 0.25));
+  box-shadow: 0 18px 32px -8px var(--glow-shadow, rgba(13, 148, 136, 0.22)), 0 0 0 1px var(--glow-border, rgba(20, 184, 166, 0.25)), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
   border-color: var(--glow-border, rgba(20, 184, 166, 0.55)) !important;
 }
 
@@ -155,15 +184,35 @@
   --glow-radial: rgba(168, 85, 247, 0.12);
 }
 
-/* Interactive Filter Pills */
+/* Design Change 4: Interactive Filter Pills with Gradient Sheen and Ring Glow */
 .filter-pill {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+}
+
+.filter-pill:hover:not(.filter-pill-active) {
+  border-color: rgba(226, 232, 240, 0.9);
+  background-color: rgba(241, 245, 249, 0.8);
 }
 
 .filter-pill-active {
-  background: #0f766e;
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
   color: #ffffff;
-  box-shadow: 0 4px 12px -2px rgba(15, 118, 110, 0.35);
+  border-color: rgba(20, 184, 166, 0.4);
+  box-shadow: 0 4px 14px -2px rgba(15, 118, 110, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Design Change 5: Audit Log Feed Row Micro-Interactions */
+.audit-log-item {
+  transition: background-color 0.2s ease, padding 0.2s ease, transform 0.2s ease;
+  border-radius: 0.875rem;
+}
+
+.audit-log-item:hover {
+  background-color: rgba(248, 250, 252, 0.95);
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  transform: translateX(3px);
 }
 
 /* Status Footer & Telemetry Pills */
