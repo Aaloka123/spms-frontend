@@ -1,1 +1,50 @@
-﻿
+/* Design Change 3: Medical-Grade Concentric Orbital Spinner Keyframes */
+@keyframes orbital-spin-cw {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbital-spin-ccw {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes core-breathe {
+  0%, 100% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+    box-shadow: 0 0 16px 2px rgba(20, 184, 166, 0.6);
+  }
+}
+
+.spin-orbital-cw {
+  animation: orbital-spin-cw 1.25s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.spin-orbital-ccw {
+  animation: orbital-spin-ccw 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.core-pulse {
+  animation: core-breathe 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-orbital-cw,
+  .spin-orbital-ccw,
+  .core-pulse {
+    animation: none !important;
+  }
+}
