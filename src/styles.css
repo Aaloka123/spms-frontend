@@ -119,12 +119,67 @@ body {
   animation: shimmer-wave 1.75s ease-in-out infinite;
 }
 
-/* Glassmorphism Surface Utilities */
+/* Design Change 1: Global Aesthetic Tokens & Tactile Micro-Interactions */
 .glass-panel-elevated {
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+.brand-glow-halo {
+  box-shadow: 0 0 24px -4px rgba(20, 184, 166, 0.35);
+}
+
+.brand-glow-halo-amber {
+  box-shadow: 0 0 24px -4px rgba(245, 158, 11, 0.35);
+}
+
+.brand-glow-halo-rose {
+  box-shadow: 0 0 24px -4px rgba(244, 63, 94, 0.35);
+}
+
+.tactile-press {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+}
+
+.tactile-press:active {
+  transform: scale(0.97) translateY(1px);
+}
+
+.sheen-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.sheen-sweep:hover::after {
+  left: 160%;
+}
+
+/* Card Surface Lift with Inset Rim Highlight */
+.interactive-card-lift {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.interactive-card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(20, 184, 166, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 1);
 }
 
 /* MedNexus FadeInOnScroll parity */
@@ -143,10 +198,14 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-fade-in {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  .scroll-fade-in,
+  .interactive-card-lift,
+  .tactile-press,
+  .sheen-sweep::after {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
   }
 }
+
 
