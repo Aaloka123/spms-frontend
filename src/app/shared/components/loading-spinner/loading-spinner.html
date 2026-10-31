@@ -1,48 +1,80 @@
+<!-- Design Change 3: Medical-Grade Concentric Pulse Loading Spinner -->
 <div
   role="status"
   aria-live="polite"
-  class="flex flex-col items-center justify-center gap-3.5 p-6 text-center"
+  class="flex flex-col items-center justify-center gap-4 p-6 text-center select-none"
   [class.fixed]="fullScreen"
   [class.inset-0]="fullScreen"
   [class.z-50]="fullScreen"
-  [class.bg-slate-900/35]="fullScreen"
+  [class.bg-slate-900/40]="fullScreen"
   [class.backdrop-blur-md]="fullScreen"
 >
   <div class="relative flex items-center justify-center">
+    <!-- Ambient Halo Glow -->
     <div
-      class="animate-spin rounded-full border-teal-600 border-t-transparent shadow-xs"
-      [class.h-7]="size === 'sm'"
-      [class.w-7]="size === 'sm'"
+      class="absolute rounded-full bg-teal-500/20 blur-xl pointer-events-none"
+      [class.h-12]="size === 'sm'"
+      [class.w-12]="size === 'sm'"
+      [class.h-16]="size === 'md'"
+      [class.w-16]="size === 'md'"
+      [class.h-24]="size === 'lg'"
+      [class.w-24]="size === 'lg'"
+    ></div>
+
+    <!-- Outer Clockwise Track & Gradient Arc -->
+    <div
+      class="rounded-full border-slate-200/40 border-t-teal-600 border-r-emerald-500 spin-orbital-cw"
+      [class.h-8]="size === 'sm'"
+      [class.w-8]="size === 'sm'"
       [class.border-2]="size === 'sm'"
-      [class.h-11]="size === 'md'"
-      [class.w-11]="size === 'md'"
+      [class.h-12]="size === 'md'"
+      [class.w-12]="size === 'md'"
       [class.border-3]="size === 'md'"
       [class.h-16]="size === 'lg'"
       [class.w-16]="size === 'lg'"
       [class.border-4]="size === 'lg'"
     ></div>
+
+    <!-- Inner Counter-Clockwise Orbital Arc -->
     <div
-      class="absolute rounded-full bg-teal-500/20 animate-ping"
-      [class.h-3]="size === 'sm'"
-      [class.w-3]="size === 'sm'"
-      [class.h-5]="size === 'md'"
-      [class.w-5]="size === 'md'"
-      [class.h-8]="size === 'lg'"
-      [class.w-8]="size === 'lg'"
+      class="absolute rounded-full border-transparent border-b-teal-400 border-l-teal-500/60 spin-orbital-ccw"
+      [class.h-5]="size === 'sm'"
+      [class.w-5]="size === 'sm'"
+      [class.border-2]="size === 'sm'"
+      [class.h-7]="size === 'md'"
+      [class.w-7]="size === 'md'"
+      [class.border-2]="size === 'md'"
+      [class.h-10]="size === 'lg'"
+      [class.w-10]="size === 'lg'"
+      [class.border-3]="size === 'lg'"
     ></div>
+
+    <!-- Breathing Core Beacon -->
     <div
-      class="absolute rounded-full bg-teal-600"
+      class="absolute rounded-full bg-gradient-to-br from-teal-400 to-emerald-600 core-pulse shadow-sm"
       [class.h-2]="size === 'sm'"
       [class.w-2]="size === 'sm'"
-      [class.h-2.5]="size === 'md'"
-      [class.w-2.5]="size === 'md'"
+      [class.h-3]="size === 'md'"
+      [class.w-3]="size === 'md'"
       [class.h-4]="size === 'lg'"
       [class.w-4]="size === 'lg'"
     ></div>
   </div>
 
   @if (message) {
-    <p class="text-xs font-semibold tracking-wide text-slate-600" [class.text-white]="fullScreen">{{ message }}</p>
+    <div
+      class="inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-bold tracking-wide shadow-2xs backdrop-blur-sm"
+      [class.bg-white/80]="!fullScreen"
+      [class.border-slate-200/80]="!fullScreen"
+      [class.text-slate-700]="!fullScreen"
+      [class.bg-slate-900/80]="fullScreen"
+      [class.border-slate-700/80]="fullScreen"
+      [class.text-teal-200]="fullScreen"
+    >
+      <span class="h-1.5 w-1.5 rounded-full bg-teal-500 animate-ping"></span>
+      <span>{{ message }}</span>
+    </div>
   }
-  <span class="sr-only">{{ message || 'Loading...' }}</span>
+  <span class="sr-only">{{ message || 'Loading pharmacy data...' }}</span>
 </div>
+
